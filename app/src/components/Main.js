@@ -1,7 +1,9 @@
 // Include React
 var React = require("react");
 // Including the Link component from React Router to navigate within our application without full page reloads
-var Link = require("react-router").Link;
+// var Link = require("react-router").Link;
+  //<Link to="/Child1"></Link>
+  //<Link to="/Child2"></Link>
 
 var Main = React.createClass({
 
@@ -15,8 +17,8 @@ var Main = React.createClass({
           <h2><strong>Whos Your Rep?</strong></h2>
           <hr />
           <p>
-            <Link to="/Child1"><button className="btn btn-primary btn-lg">Show Child #1</button></Link>
-            <Link to="/Child2"><button className="btn btn-danger btn-lg">Show Child #2</button></Link>
+            <button className="btn btn-primary btn-lg">Show Child #1</button>
+            <button className="btn btn-danger btn-lg">Show Child #2</button>
           </p>
         </div>
 
