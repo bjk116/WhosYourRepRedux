@@ -11,7 +11,7 @@ class App extends Component {
     return (
       <div id="App">
         <Header />
-        <Calendar />
+        <Calendar searchBy={'state'} searchCriteria={'NJ'}/>
         <Footer />
       </div>
     );
