@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import AutoComplete from 'material-ui/AutoComplete';
+import AutoComplete from "material-ui/AutoComplete";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import JSONP from "jsonp";
@@ -7,7 +7,7 @@ import JSONP from "jsonp";
 const googleAutoSuggestURL = `
   //suggestqueries.google.com/complete/search?client=youtube&ds=yt&q=`;
 
-const data = ['Alabama', 'Alaska'];
+const data = ["Alabama", "Alaska"];
 class MaterialUIAutocomplete extends Component {
   constructor(props) {
     super(props);
