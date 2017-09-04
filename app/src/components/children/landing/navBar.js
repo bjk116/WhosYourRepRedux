@@ -1,24 +1,74 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React, {Component} from "react";
+import AppBar from "material-ui/AppBar";
+import IconButton from "material-ui/IconButton";
+import IconMenu from "material-ui/IconMenu";
+import MenuItem from "material-ui/MenuItem";
+import FlatButton from "material-ui/FlatButton";
+import Toggle from "material-ui/Toggle";
+import MoreVertIcon from "material-ui/svg-icons/navigation/more-vert";
+import NavigationClose from "material-ui/svg-icons/navigation/close";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider"
 
-const NavBar = React.createClass({
-  render: function() {
+class Login extends Component {
+  static muiName = "FlatButton";
+
+  render() {
     return (
-      <nav class="navbar navbar-default">
-			  <div class="container-fluid">
-			    <div class="navbar-header">
-			      <a class="navbar-brand" href="#">Who's Your Rep?</a>
-			    </div>
-
-			    <ul class="nav navbar-nav">
-			      <li class="active"><a href="#">Home</a></li>
-			      <li><a href="#">Page 1</a></li>
-			      <li><a href="#">Login</a></li>
-			    </ul>
-			  </div>
-			</nav>
+      <FlatButton {...this.props} label="Login" />
     );
   }
-});
+}
 
-ReactDOM.render(<NavBar />, document.querySelector("navbar"));
+const Logged = (props) => (
+	//What buttons look like
+  <IconMenu
+    {...props}
+    iconButtonElement={
+      <IconButton><MoreVertIcon /></IconButton>
+    }
+    //Position of prop
+    targetOrigin={{horizontal: "right", vertical: "top"}}
+    anchorOrigin={{horizontal: "right", vertical: "top"}}
+    //Hidden until pressed
+  >
+    <MenuItem primaryText="Refresh" />
+    <MenuItem primaryText="Help" />
+    <MenuItem primaryText="Sign out" />
+  </IconMenu>
+);
+
+Logged.muiName = "IconMenu";
+
+class NavBar extends Component {
+	//find way to hide or trigger state change
+  state = {
+    logged: false,
+  };
+
+  handleChange = (event, logged) => {
+    this.setState({logged: logged});
+  };
+
+  render() {
+    return (
+      <MuiThemeProvider>
+        <div>
+          <Toggle
+            label="Logged"
+            defaultToggled={false}
+            onToggle={this.handleChange}
+            labelPosition="right"
+            style={{margin: 20}}
+          />
+          <AppBar
+            title="Title"
+            iconElementLeft={<IconButton><NavigationClose /></IconButton>}
+            iconElementRight={this.state.logged ? <Logged /> : <Login />}
+          />
+        </div>
+      </MuiThemeProvider>
+    );
+  }
+}
+
+export default NavBar;
