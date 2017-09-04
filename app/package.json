@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
+    "jsonp": "^0.2.1",
+    "material-ui": "^0.19.1",
     "moment": "^2.18.1",
     "react": "^15.6.1",
     "react-big-calendar": "^0.15.0",
