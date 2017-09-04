@@ -62,7 +62,6 @@ class NavBar extends Component {
           />
           <AppBar
             title="Title"
-            iconElementLeft={<IconButton><NavigationClose /></IconButton>}
             iconElementRight={this.state.logged ? <Logged /> : <Login />}
           />
         </div>
