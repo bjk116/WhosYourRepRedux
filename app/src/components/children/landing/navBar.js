@@ -33,7 +33,8 @@ const Logged = (props) => (
   >
     <MenuItem primaryText="Refresh" />
     <MenuItem primaryText="Help" />
-    <MenuItem primaryText="Sign out" />
+    <MenuItem onClick={NavBar.handleChange} primaryText="Sign out" />
+    
   </IconMenu>
 );
 
@@ -71,3 +72,36 @@ class NavBar extends Component {
 }
 
 export default NavBar;
+
+// import React, {Component} from "react";
+// import ReactDOM from "react-dom";
+
+// const NavComponent = React.createClass({
+//   toggle: function() {
+//     let linksEl = document.querySelector(".links");
+
+//     if (linksEl.style.display === 'block') {
+//       linksEl.style.display = 'none';
+//     } 
+//     else {
+//       linksEl.style.display = 'block';
+//     }
+//   }
+
+//   render: function() {
+//     return (
+//       <nav>
+//         <div className="nav">
+//           <i className="fa fa-bars fa-2x"></i>
+//           <div className="links">
+//             <li><Link to="/home">Home</Link></li>
+//             <a href="#">Link 2</a>
+//             <a href="#">Link 3</a>
+//           </div>
+//         </div>
+//       </nav>
+//     );
+//   }
+// });
+
+// export default NavBar;

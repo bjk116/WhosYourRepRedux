@@ -3,11 +3,12 @@ import AutoComplete from "material-ui/AutoComplete";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import JSONP from "jsonp";
+import Source from "./dataSource";
 
 const googleAutoSuggestURL = `
   //suggestqueries.google.com/complete/search?client=youtube&ds=yt&q=`;
 
-const data = ["Alabama", "Alaska"];
+const data = Source;
 class MaterialUIAutocomplete extends Component {
   constructor(props) {
     super(props);
