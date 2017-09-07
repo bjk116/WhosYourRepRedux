@@ -5,9 +5,10 @@ import Header from './components/children/Header';
 import Footer from './components/children/Footer';
 import Main from './components/Main';
 import Calendar from './components/children/calendar/Calendar';
-import PieChart from './components/children/chart/Chart';
+import PieChart from './components/children/chart/chart';
 import NavBar from './components/children/landing/navBar';
 import SearchBar from './components/children/landing/searchBar';
+import StatePage from './components/children/state/StatePage';
 
 class App extends Component {
   render() {
@@ -15,7 +16,7 @@ class App extends Component {
       <div id="App">
         <NavBar />
         <SearchBar />
-        <PieChart/>
+        <Calendar />
         <Footer />
       </div>
     );
