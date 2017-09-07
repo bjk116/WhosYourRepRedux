@@ -3,18 +3,19 @@ import AppBar from "material-ui/AppBar";
 import IconButton from "material-ui/IconButton";
 import IconMenu from "material-ui/IconMenu";
 import MenuItem from "material-ui/MenuItem";
-import FlatButton from "material-ui/FlatButton";
+import RaisedButton from "material-ui/RaisedButton";
 import Toggle from "material-ui/Toggle";
 import MoreVertIcon from "material-ui/svg-icons/navigation/more-vert";
 import NavigationClose from "material-ui/svg-icons/navigation/close";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider"
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import SearchBar from "./SearchBar";
 
 class Login extends Component {
   static muiName = "FlatButton";
 
   render() {
     return (
-      <FlatButton {...this.props} label="Login" />
+      <RaisedButton {...this.props} label="Login" />
     );
   }
 }
@@ -54,15 +55,8 @@ class NavBar extends Component {
     return (
       <MuiThemeProvider>
         <div>
-          <Toggle
-            label="Logged"
-            defaultToggled={false}
-            onToggle={this.handleChange}
-            labelPosition="right"
-            style={{margin: 20}}
-          />
           <AppBar
-            title="Title"
+            title={<SearchBar />}
             iconElementRight={this.state.logged ? <Logged /> : <Login />}
           />
         </div>
@@ -72,36 +66,3 @@ class NavBar extends Component {
 }
 
 export default NavBar;
-
-// import React, {Component} from "react";
-// import ReactDOM from "react-dom";
-
-// const NavComponent = React.createClass({
-//   toggle: function() {
-//     let linksEl = document.querySelector(".links");
-
-//     if (linksEl.style.display === 'block') {
-//       linksEl.style.display = 'none';
-//     } 
-//     else {
-//       linksEl.style.display = 'block';
-//     }
-//   }
-
-//   render: function() {
-//     return (
-//       <nav>
-//         <div className="nav">
-//           <i className="fa fa-bars fa-2x"></i>
-//           <div className="links">
-//             <li><Link to="/home">Home</Link></li>
-//             <a href="#">Link 2</a>
-//             <a href="#">Link 3</a>
-//           </div>
-//         </div>
-//       </nav>
-//     );
-//   }
-// });
-
-// export default NavBar;
