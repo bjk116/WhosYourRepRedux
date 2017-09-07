@@ -33,7 +33,7 @@ const Logged = (props) => (
   >
     <MenuItem primaryText="Refresh" />
     <MenuItem primaryText="Help" />
-    <MenuItem onClick={NavBar.handleChange} primaryText="Sign out" />
+    <MenuItem onClick={this.handleChange} primaryText="Sign out" />
     
   </IconMenu>
 );
