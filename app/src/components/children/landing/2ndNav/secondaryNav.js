@@ -16,10 +16,13 @@ export class NavBar extends React.Compnent {
           {page}
         </a>
       )
-    });
-    return <nav>{links}</nav>;
-    <Login />
+    };
+
+    return (
+      <div>
+        <nav>{links}</nav>
+        <Login />
+        <SearchBar />
+      </div>
   }
 }
-
-

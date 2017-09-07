@@ -1,8 +1,9 @@
 import React from "react";
 
-
 export class Login extends React.Component {
 	render() {
-		return ;
+		return(
+			<button onClick={}>Login</button>
+		);
 	}
 }
