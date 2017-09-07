@@ -5,7 +5,7 @@ class DonorChart extends React.Component {
 
 	renderGoogleChart() {
 		var chartData = this.props.donorsData;
-		//console.log(chartData);
+		console.log(chartData);	
 	}
 
 
