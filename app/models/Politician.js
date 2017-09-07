@@ -7,9 +7,9 @@ var Schema = mongoose.Schema;
 
 var PoliticianSchema = new Schema({
 	//initial
-	state: {
+	cid: {
 		type: String
-	}
+	},
 	firstName: {
 		type: String
 	},
@@ -19,12 +19,18 @@ var PoliticianSchema = new Schema({
 	party: {
 		type: String
 	},
+	//change
 	donors: {
 		type: String
 	},
-	events: {
-		type: [Schema.Types.ObjectId],
-		ref: "ApiEvents"
+	twitterHandle: {
+		type: String
+	},
+	relectionDate: {
+		type: Date
+	},
+	proposedBills: {
+		type: String
 	}
 });
 
