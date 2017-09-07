@@ -5,7 +5,7 @@ class StatePage extends React.Component {
 	render() {
 		return(
 			<div>
-				<TopStateDonors />
+				<TopStateDonors stateID={'NJ'}/>
 			</div>
 		);
 	}

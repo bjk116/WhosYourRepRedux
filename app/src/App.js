@@ -11,7 +11,7 @@ import NavBar from './components/children/landing/navBar';
 import SearchBar from './components/children/landing/searchBar';
 import StatePage from './components/children/state/StatePage';
 
-
+// <Calendar searchBy={'state'} searchCriteria={'NJ'}/>
 class App extends Component {
   render() {
     return (
@@ -19,7 +19,7 @@ class App extends Component {
         <Header />
         <NavBar />
         <SearchBar />
-        <Calendar searchBy={'state'} searchCriteria={'NJ'}/>
+        <StatePage />
         <Footer />
       </div>
     );
