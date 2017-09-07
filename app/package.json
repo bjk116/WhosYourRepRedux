@@ -4,9 +4,12 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
+    "cron": "^1.2.1",
     "jsonp": "^0.2.1",
     "material-ui": "^0.19.1",
     "moment": "^2.18.1",
+    "mongoose": "^4.11.10",
+    "node-cron": "^1.2.1",
     "react": "^15.6.1",
     "react-big-calendar": "^0.15.0",
     "react-dom": "^15.6.1",
