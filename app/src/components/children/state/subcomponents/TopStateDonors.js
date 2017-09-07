@@ -5,6 +5,7 @@ import DonorChart from './DonorChart';
 class TopStateDonors extends React.Component {
 
 	getTopStateDonors(userInputForStateID) {
+		console.log("getTopStateDonors method starts");
 		var opensecetsAPIKey = 'ae20f4a9d0bfa0a12552aa9c592440cb';
 
 		var queryURL = 'http://www.opensecrets.org/api/?method=getLegislators&id=' + userInputForStateID + '&apikey=' + opensecetsAPIKey + '&output=json';
@@ -39,12 +40,11 @@ class TopStateDonors extends React.Component {
 				});
 			}
 		});
-		// console.log(polsDonors);
-
 		this.setState({
 			politiciansDonors: polsDonors
 		});
 
+		console.log("getTopStateDonors method finished");
 	}
 
 	constructor(props) {
@@ -53,17 +53,17 @@ class TopStateDonors extends React.Component {
 		this.state = {
 			politiciansDonors: []
 		}
-
 	}
 
-	componentDidMount() {
-		console.log("component mounted with manually entered props of: " + this.props.stateID);
+	componentWillMount() {
+		console.log("component to be mounted with manually entered props of: " + this.props.stateID);
 		var stateID = this.props.stateID;
 		this.getTopStateDonors(stateID);
 	}
 
 	render() {
-		console.log(this.state.politiciansDonors);
+		// console.log(this.state.politiciansDonors);
+		var donorsDataArray = this.state.politiciansDonors;
 		return (
 			<div>
 				<h1>State Info for New Jersey</h1>
