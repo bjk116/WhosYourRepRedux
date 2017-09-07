@@ -7,8 +7,8 @@ import Source from "./dataSource";
 
 const googleAutoSuggestURL = `
   //suggestqueries.google.com/complete/search?client=youtube&ds=yt&q=`;
-
 const data = Source;
+
 class MaterialUIAutocomplete extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +18,7 @@ class MaterialUIAutocomplete extends Component {
       inputValue : ""
     }
   }
-
+//function to change items in autocomplete
   onUpdateInput(inputValue) {
     const self = this;
     this.setState({
@@ -27,7 +27,7 @@ class MaterialUIAutocomplete extends Component {
       self.performSearch();
     });
   }
-
+//actual autocomplete funtion
   performSearch() {
     const
       self = this,
@@ -51,11 +51,11 @@ class MaterialUIAutocomplete extends Component {
       });
     }
   }
-
+  //render the autocompleting search line
   render() {
     return <MuiThemeProvider muiTheme={getMuiTheme()}>
       <AutoComplete
-        dataSource    = {this.state.dataSource}
+        dataSource = {this.state.dataSource}
         onUpdateInput = {this.onUpdateInput} />
       </MuiThemeProvider>
   }

@@ -8,7 +8,6 @@ import Toggle from "material-ui/Toggle";
 import MoreVertIcon from "material-ui/svg-icons/navigation/more-vert";
 import NavigationClose from "material-ui/svg-icons/navigation/close";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import SearchBar from "./SearchBar";
 
 class Login extends Component {
   static muiName = "FlatButton";
@@ -56,7 +55,7 @@ class NavBar extends Component {
       <MuiThemeProvider>
         <div>
           <AppBar
-            title={<SearchBar />}
+            title="Whos your rep?"
             iconElementRight={this.state.logged ? <Logged /> : <Login />}
           />
         </div>

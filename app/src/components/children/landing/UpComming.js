@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-const Trending = React.createClass({
+const UpComming = React.createClass({
   render: function() {
     return (
    
@@ -9,4 +9,4 @@ const Trending = React.createClass({
   }
 });
 
-ReactDOM.render(<Trending />, document.querySelector("trending"));
+ReactDOM.render(<UpComming />, document.querySelector("UpComming"));
