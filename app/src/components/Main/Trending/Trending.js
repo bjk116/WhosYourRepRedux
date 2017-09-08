@@ -1,12 +1,22 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React, { Component } from "react";
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import ApiTrending from './ApiTrending/ApiTrending';
+import UserTrending from './UserTrending/UserTrending';
 
-const UpComming = React.createClass({
-  render: function() {
-    return (
-   
-    );
-  }
-});
+var margin = {
+	marginLeft: 40,
+	marginRight: 40
+}
 
-ReactDOM.render(<UpComming />, document.querySelector("UpComming"));
+//remember to add back UserTrending
+class Trending extends Component {
+	render() {
+		return(
+			<MuiThemeProvider style={margin}>
+				<ApiTrending />
+			</MuiThemeProvider>
+		);
+	}
+}
+
+export default Trending;
