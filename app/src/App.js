@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import NavBar from "./components/NavBar/NavBar";
+import NavBar from "./components/Navbar/navBar";
 import Footer from "./components/Footer/Footer";
 import Main from "./components/Main/Main";
-import Calendar from "./components/Main/Calendar/Calendar";
-import PieChart from "./components/Main/Chart/Chart";
-import Politician from "./components/Main/Politician/Politician";
-import SearchBar from "./components/Main/SearchBar/SearchBar";
-import StatePage from "./components/Main/State/StatePage";
+import Calendar from "./components/Main/calendar/Calendar";
+import PieChart from "./components/Main/chart/chart";
+import Politician from "./components/Main/politician/Politician";
+import SearchBar from "./components/Main/searchBar/searchBar";
+import StatePage from "./components/Main/state/StatePage";
 
 // <Calendar searchBy={"state"} searchCriteria={"NJ"}/>
 class App extends Component {
