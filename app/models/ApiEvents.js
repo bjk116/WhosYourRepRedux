@@ -5,7 +5,10 @@ var ApiEventSchema = new Schema({
 	//initial of state
 	state: {
 		type: String
-	}
+	},
+	beneficiaries: {
+		type: [String]
+	},
 	title: {
 		type: String
 	},
@@ -16,14 +19,6 @@ var ApiEventSchema = new Schema({
 		type: Date
 	},
 	desc: {
-		type: String
-	},
-	//optional here
-	politicians: {
-		type: Schema.Types.ObjectId,
-		ref: "Politician"
-	},
-	cause: {
 		type: String
 	}
 });
