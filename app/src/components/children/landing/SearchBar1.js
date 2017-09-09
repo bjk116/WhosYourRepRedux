@@ -3,12 +3,24 @@ import AutoComplete from "material-ui/AutoComplete";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import JSONP from "jsonp";
-import Source from "./dataSource";
+import Source from "./DataSource";
+import styles from "../../../styles/search.css";
 
 const googleAutoSuggestURL = `
   //suggestqueries.google.com/complete/search?client=youtube&ds=yt&q=`;
-
 const data = Source;
+
+const muiTheme = getMuiTheme({
+  palette: {
+    canvasColor: "grey400",
+    boarderColor: "grey400",
+    textColor: "darkBlack",
+  },
+  AutoComplete: {
+   width: 100,
+  },
+});
+
 class MaterialUIAutocomplete extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +30,7 @@ class MaterialUIAutocomplete extends Component {
       inputValue : ""
     }
   }
-
+//function to change items in autocomplete
   onUpdateInput(inputValue) {
     const self = this;
     this.setState({
@@ -27,7 +39,7 @@ class MaterialUIAutocomplete extends Component {
       self.performSearch();
     });
   }
-
+//actual autocomplete funtion
   performSearch() {
     const
       self = this,
@@ -52,10 +64,12 @@ class MaterialUIAutocomplete extends Component {
     }
   }
 
+  //render the autocompleting search line
   render() {
-    return <MuiThemeProvider muiTheme={getMuiTheme()}>
-      <AutoComplete
-        dataSource    = {this.state.dataSource}
+    return <MuiThemeProvider muiTheme={muiTheme}>
+        <AutoComplete
+        floatingLabelText = "Search"
+        dataSource = {this.state.dataSource}
         onUpdateInput = {this.onUpdateInput} />
       </MuiThemeProvider>
   }

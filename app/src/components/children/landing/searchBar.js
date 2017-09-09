@@ -3,62 +3,101 @@ import AutoComplete from "material-ui/AutoComplete";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import JSONP from "jsonp";
-import Source from "./dataSource";
+import Source from "./DataSource";
+import styles from "../../../styles/search.css";
+import Autosuggest from "react-autosuggest";
 
-const googleAutoSuggestURL = `
-  //suggestqueries.google.com/complete/search?client=youtube&ds=yt&q=`;
-const data = Source;
+var AutosuggestHighlightMatch = require("autosuggest-highlight/match");
+var AutosuggestHighlightParse = require("autosuggest-highlight/parse");
+var data = Source;
 
-class MaterialUIAutocomplete extends Component {
-  constructor(props) {
-    super(props);
-    this.onUpdateInput = this.onUpdateInput.bind(this);
+function escapeRegexCharacters(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function getSuggestions(value) {
+  const escapedValue = escapeRegexCharacters(value.trim());
+  
+  if (escapedValue === "") {
+    return [];
+  }
+
+  const regex = new RegExp("\\b" + escapedValue, "i");
+  
+  return data.filter(item => regex.test(getSuggestionValue(item)));
+}
+
+function getSuggestionValue(suggestion) {
+  return `${suggestion}`;
+}
+
+function renderSuggestion(suggestion, { query }) {
+  const matches = AutosuggestHighlightMatch(suggestion, query);
+  const parts = AutosuggestHighlightParse(suggestion, matches);
+
+  return (
+    <span className={"suggestion-content " + suggestion}>
+      <span className="name">
+        {
+          parts.map((part, index) => {
+            const className = part.highlight ? "highlight" : null;
+
+            return (
+              <span className={className} key={index}>{part.text}</span>
+            );
+          })
+        }
+      </span>
+    </span>
+  );
+}
+
+class SearchBar extends React.Component {
+  constructor() {
+    super();
+
     this.state = {
-      dataSource : [],
-      inputValue : ""
-    }
+      value: "",
+      suggestions: []
+    };    
   }
-//function to change items in autocomplete
-  onUpdateInput(inputValue) {
-    const self = this;
+
+  onChange = (event, { newValue, method }) => {
     this.setState({
-      inputValue: inputValue
-    }, function() {
-      self.performSearch();
+      value: newValue
     });
-  }
-//actual autocomplete funtion
-  performSearch() {
-    const
-      self = this,
-      url  = googleAutoSuggestURL + this.state.inputValue;
+  };
+  
+  onSuggestionsFetchRequested = ({ value }) => {
+    this.setState({
+      suggestions: getSuggestions(value)
+    });
+  };
 
-    if(this.state.inputValue !== "") {
-      JSONP(url, function(error, data) {
-        let searchResults, retrievedSearchTerms;
+  onSuggestionsClearRequested = () => {
+    this.setState({
+      suggestions: []
+    });
+  };
 
-        if(error) return error;
-
-        searchResults = data[1];
-
-        retrievedSearchTerms = searchResults.map(function(result) {
-          return result[0];
-        });
-
-        self.setState({
-          dataSource: retrievedSearchTerms
-        });
-      });
-    }
-  }
-  //render the autocompleting search line
   render() {
-    return <MuiThemeProvider muiTheme={getMuiTheme()}>
-      <AutoComplete
-        dataSource = {this.state.dataSource}
-        onUpdateInput = {this.onUpdateInput} />
-      </MuiThemeProvider>
+    const { value, suggestions } = this.state;
+    const inputProps = {
+      placeholder: "Search",
+      value,
+      onChange: this.onChange
+    };
+
+    return (
+      <Autosuggest 
+        suggestions={suggestions}
+        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+        getSuggestionValue={getSuggestionValue}
+        renderSuggestion={renderSuggestion}
+        inputProps={inputProps} />
+    );
   }
 }
 
-export default MaterialUIAutocomplete;
+export default SearchBar;

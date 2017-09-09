@@ -5,7 +5,7 @@ import Header from "./components/children/Header";
 import Footer from "./components/children/Footer";
 import Main from "./components/Main";
 import Calendar from "./components/children/calendar/Calendar";
-import PieChart from "./components/children/chart/chart";
+import PieChart from "./components/children/chart/Chart";
 import Politician from "./components/children/politician/Politician";
 import NavBar from "./components/children/landing/NavBar";
 import SearchBar from "./components/children/landing/SearchBar";
