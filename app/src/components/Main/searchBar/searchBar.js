@@ -3,8 +3,7 @@ import AutoComplete from "material-ui/AutoComplete";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import JSONP from "jsonp";
-import Source from "./DataSource";
-import styles from "../../../styles/search.css";
+import Source from "./dataSource";
 import Autosuggest from "react-autosuggest";
 
 var AutosuggestHighlightMatch = require("autosuggest-highlight/match");

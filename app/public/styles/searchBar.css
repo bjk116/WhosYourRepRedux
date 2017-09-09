@@ -1,4 +1,4 @@
-body {
+align-content: center;
   font-family: Helvetica, sans-serif;
 }
 
@@ -8,7 +8,7 @@ body {
 
 .react-autosuggest__input {
   width: 50%;
-  height: 30px;
+  height: 50px;
   padding: 10px 20px;
   font-family: Helvetica, sans-serif;
   font-weight: 300;
@@ -31,6 +31,7 @@ body {
 }
 
 .react-autosuggest__suggestions-container--open {
+  margin-left: 40%;
   display: block;
   position: absolute;
   top: 51px;
