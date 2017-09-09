@@ -18,7 +18,7 @@ class TopStateDonors extends React.Component {
 		  	url: queryURL,
 		    responseType: 'json'
 		}).then((resp) => {
-			// console.log(resp);
+			console.log(resp);
 			for (var i = 0; i < resp.data.response.legislator.length; i++) {
 				polsCID.push(resp.data.response.legislator[i]['@attributes'].cid);
 			}
