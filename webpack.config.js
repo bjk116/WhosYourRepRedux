@@ -12,6 +12,16 @@ module.exports = {
   module: {
     loaders: [
       {
+        test: /\.css$/,
+        loader: 'style-loader'
+      },{
+        test: /\.css$/,
+        loader: 'css-loader',
+        query: {
+          modules: true,
+          localIdentName: '[name]__[local]___[hash:base64:5]'
+        }
+      },{
         // Only working with files that in in a .js or .jsx extension
         test: /\.jsx?$/,
         // Webpack will only process files in our app folder. This avoids processing
