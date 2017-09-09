@@ -9,16 +9,37 @@ import PieChart from "./components/Main/chart/chart";
 import Politician from "./components/Main/politician/Politician";
 import SearchBar from "./components/Main/searchBar/searchBar";
 import StatePage from "./components/Main/state/StatePage";
-import Trending from "./components/Main/Trending/Trending"
+import Trending from "./components/Main/Trending/Trending";
+import {Switch, Route} from "react-router-dom";
 
 // <Calendar searchBy={"state"} searchCriteria={"NJ"}/>
+class CalendarWrapper extends Component{
+  render() {
+    return(
+        <Calendar searchBy={"state"} searchCriteria={"NJ"}/>
+    );
+  }
+}
+
+class StatePageWrapper extends Component {
+  render() {
+    return(
+      <StatePage stateID={'NJ'} />
+    );
+  }
+}
+
+
 class App extends Component {
   render() {
     return (
       <div id="App">
         <NavBar />
         <SearchBar />
-        <StatePage stateID={"NJ"}/>
+        <Switch>
+            <Route exact path='/calendar' component = {CalendarWrapper} />
+            <Route exact path = '/state' component = {StatePageWrapper} />      
+        </Switch>
         <Footer />
       </div>
     );
