@@ -19,7 +19,6 @@ var PoliticianSchema = new Schema({
 	party: {
 		type: String
 	},
-	//change
 	donors: {
 		type: String
 	},

@@ -18,12 +18,14 @@ var UserEventSchema = new Schema({
 	desc: {
 		type: String
 	},
-	politicians: {
-		type: Schema.Types.ObjectId,
-		ref: "Politician"
+	cause: {
+		type: String
+	},
+	upvotes: {
+		type: Number,
+		default: 0
 	}
 });
 
 var UserEvents = mongoose.model('UserEvents', UserEventSchema);
-
 module.exports = UserEvents;
