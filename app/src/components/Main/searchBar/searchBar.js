@@ -5,9 +5,11 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import JSONP from "jsonp";
 import Source from "./dataSource";
 import Autosuggest from "react-autosuggest";
+import Style from "./style.css";
 
 var AutosuggestHighlightMatch = require("autosuggest-highlight/match");
 var AutosuggestHighlightParse = require("autosuggest-highlight/parse");
+var style = Style;
 var data = Source;
 
 function escapeRegexCharacters(str) {
@@ -89,6 +91,7 @@ class SearchBar extends React.Component {
 
     return (
       <Autosuggest 
+        style={style}
         suggestions={suggestions}
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}

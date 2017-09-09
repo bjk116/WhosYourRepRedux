@@ -1,4 +1,5 @@
-align-content: center;
+body {
+  align-content: center;
   font-family: Helvetica, sans-serif;
 }
 
