@@ -6,6 +6,7 @@
     "autosuggest-highlight": "^3.1.0",
     "axios": "^0.16.2",
     "cron": "^1.2.1",
+    "jquery": "^3.2.1",
     "jsonp": "^0.2.1",
     "material-ui": "^0.19.1",
     "moment": "^2.18.1",
