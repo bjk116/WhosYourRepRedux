@@ -18,7 +18,7 @@ class TopStateDonors extends React.Component {
 		  	url: queryURL,
 		    responseType: 'json'
 		}).then((resp) => {
-			console.log(resp);
+			// console.log(resp);
 			for (var i = 0; i < resp.data.response.legislator.length; i++) {
 				polsCID.push(resp.data.response.legislator[i]['@attributes'].cid);
 			}
@@ -50,9 +50,10 @@ class TopStateDonors extends React.Component {
 		// }).then((resp)=>{
 		// 	console.log(resp);
 		// });
-		// this.setState({
-		// 	politiciansDonors: polsDonors
-		// });
+
+		this.setState({
+			politiciansDonors: polsDonors
+		});
 
 		console.log("getTopStateDonors method finished");
 	}
@@ -73,10 +74,9 @@ class TopStateDonors extends React.Component {
 
 	render() {
 		// console.log(this.state.politiciansDonors);
-		var donorsDataArray = this.state.politiciansDonors;
 		return (
 			<div>
-				<h1>State Info for New Jersey</h1>
+				<h1>State Info for {this.props.stateID}</h1>
 				<DonorChart donorsData={this.state.politiciansDonors} />
 			</div>
 		);
