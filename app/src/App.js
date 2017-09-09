@@ -9,6 +9,7 @@ import PieChart from "./components/Main/chart/chart";
 import Politician from "./components/Main/politician/Politician";
 import SearchBar from "./components/Main/searchBar/searchBar";
 import StatePage from "./components/Main/state/StatePage";
+import Form from "./components/testComponents/Form";
 
 // <Calendar searchBy={"state"} searchCriteria={"NJ"}/>
 class App extends Component {
@@ -17,11 +18,12 @@ class App extends Component {
       <div id="App">
         <NavBar />
         <SearchBar />
-        <StatePage />
+        <Form />
         <Footer />
       </div>
     );
   }
 }
+
 
 export default App;
