@@ -10,8 +10,7 @@ import Politician from "./components/Main/politician/Politician";
 import SearchBar from "./components/Main/searchBar/searchBar";
 import StatePage from "./components/Main/state/StatePage";
 
-import Form from "./components/testComponents/Form";
-
+import Form from "./components/Main/Form/Form";
 import Trending from "./components/Main/Trending/Trending";
 import {Switch, Route} from "react-router-dom";
 

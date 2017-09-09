@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import DatePicker from 'material-ui/DatePicker';
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
+import States from "../searchBar/dataSource";
+import TimePicker from 'material-ui/TimePicker';
 
 
 var divStyle = {
@@ -39,6 +41,7 @@ class Form extends React.Component {
   handleSubmit(event) {
     alert('A name was submitted: ' + this.state.value);
     event.preventDefault();
+    console.log(this.state);
   }
 
 
@@ -68,9 +71,9 @@ class Form extends React.Component {
       <div style={selectStyle}>
         <select>
           <option value="" disabled selected>Choose your option</option>
-          
-          <option value="2">Option 2</option>
-          
+          {States.map(States=>
+            <option value={States}>{States}</option>
+          )}
         </select>
         <label>
             State:
@@ -84,19 +87,35 @@ class Form extends React.Component {
           <MuiThemeProvider muiTheme={getMuiTheme()}>
             <DatePicker hintText="Enter Date" />
           </MuiThemeProvider>
+          <input name="date" type="text" class="datepicker" value={this.state.end} onChange={this.handleChange} />
       </label>
     </div>
 
   <div class="input-field col s6">
       <label class="active">
-          End Date:
-           <MuiThemeProvider muiTheme={getMuiTheme()}>
-            <DatePicker hintText="Enter Date" />
-          </MuiThemeProvider>
-          <input name="end" type="text" class="datepicker" value={this.state.end} onChange={this.handleChange} />
+        Start Time:
+        <MuiThemeProvider muiTheme={getMuiTheme()}>
+          <TimePicker
+            hintText="Start Time"
+            minutesStep={5}
+          />
+        </MuiThemeProvider>
+        <input name="startTime" type="text" class="datepicker" value={this.state.end} onChange={this.handleChange} />
       </label>
-    </div>   
+  </div>   
 
+  <div class="input-field col s6">
+      <label class="active">
+        End Time:
+        <MuiThemeProvider muiTheme={getMuiTheme()}>
+          <TimePicker
+            hintText="Start Time"
+            minutesStep={5}
+          />
+        </MuiThemeProvider>
+        <input name="endTime" type="text" class="datepicker" value={this.state.end} onChange={this.handleChange} />
+      </label>
+  </div>
 
     <div class="input-field col s6">
       <label class="active">
