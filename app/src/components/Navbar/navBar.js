@@ -9,12 +9,7 @@ import MoreVertIcon from "material-ui/svg-icons/navigation/more-vert";
 import NavigationClose from "material-ui/svg-icons/navigation/close";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
-
-const muiTheme = getMuiTheme({
-  appBar: {
-    height: 100,
-  },
-});
+import Style from "./style.css";
 
 class Login extends Component {
   static muiName = "FlatButton";
@@ -59,11 +54,13 @@ class NavBar extends Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={muiTheme}>
+      <MuiThemeProvider muiTheme={getMuiTheme()}>
         <div>
           <AppBar
+            className="bar"
             title="Whos your rep?"
             iconElementRight={this.state.logged ? <Logged /> : <Login />}
+            showMenuIconButton={false}
           />
         </div>
       </MuiThemeProvider>
