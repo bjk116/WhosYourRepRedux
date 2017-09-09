@@ -4,11 +4,14 @@ import { Chart } from 'react-google-charts';
 class DonorChart extends React.Component {
 
 	setChartData() {
-		var chartData = this.props.donorsData;
+		console.log("search data function");
+		var chartData = this.props.donorsData;		
 		console.log(chartData);
-		for (var i=0; i < chartData.length; i++) {
-			console.log(chartData[i].politician);
+		
+		for (var i = 0; i < chartData.length; i++) {
+			console.log("Hello world");
 		}
+
 	}
 
 
@@ -26,7 +29,7 @@ class DonorChart extends React.Component {
 		// }
 	}
 
-	componentDidMount() {
+	componentWillMount() {
 		this.setChartData();
 	}
 
