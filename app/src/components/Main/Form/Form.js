@@ -153,7 +153,7 @@ class Form extends React.Component {
         End Time:
         <MuiThemeProvider muiTheme={getMuiTheme()}>
           <TimePicker
-            hintText="Start Time"
+            hintText="End Time"
             minutesStep={5}
             value={this.state.endTime}
             onChange={this.handleChangeEndTime}
