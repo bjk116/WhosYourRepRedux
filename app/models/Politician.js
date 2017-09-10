@@ -33,6 +33,10 @@ var PoliticianSchema = new Schema({
 	},
 	roles: {
 		type: [String]
+	},
+	events: {
+		type: [Schema.Types.ObjectId],
+		ref: "ApiEvents"
 	}
 });
 

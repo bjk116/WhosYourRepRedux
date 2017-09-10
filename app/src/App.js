@@ -34,6 +34,14 @@ class StatePageWrapper extends Component {
 
 
 class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+      currentComponent : "/state",
+      loggedInStatus : false,
+    }
+  }
+
   render() {
     return (
       <div id="App">

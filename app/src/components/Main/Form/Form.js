@@ -4,6 +4,8 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import States from "../searchBar/dataSource";
 import TimePicker from 'material-ui/TimePicker';
+import $ from 'jquery';
+
 
 
 var divStyle = {
@@ -14,17 +16,42 @@ var divStyle = {
 };
 
 var selectStyle = {
-  width: "80%",
-  margin: "50px"
+  // width: "80%",
+  // margin: "50px"
 };
 
 class Form extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    this.state =  {
+                    value: '',
+                    controlledDate: null,
+                    startTime: null,
+                    endTime: null
+                  };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleTextAreaChange = this.handleTextAreaChange.bind(this);
+  }
+
+  handleDateChange = (event, date) => {
+    this.setState({
+      controlledDate: date,
+    });
+  };
+
+  handleChangeStartTime = (event, date) => {
+    this.setState({startTime: date});
+  };
+
+  handleChangeEndTime = (event, date) => {
+    this.setState({endTime: date});
+  };
+
+  handleTextAreaChange(event) {
+    this.setState({description: event.target.value});
   }
 
   handleChange(event) {
@@ -38,13 +65,20 @@ class Form extends React.Component {
     });
   }
 
-  handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value);
-    event.preventDefault();
-    console.log(this.state);
+  addEventToDatabase(information) {
+
   }
 
+  handleSubmit(event) {
+    event.preventDefault();
+    console.log(this.state);
+    //Should do basic error checking here
+      //Make sure date picked is in the future
+      //Make sure the times make sense, ie start time can't be afterend time
+      //make sure all fields are filled out
+    //If there are no errors, add to database
 
+  }
 
   render() {
     return (
@@ -63,21 +97,28 @@ class Form extends React.Component {
     <div class="input-field col s6">
       <label class="active">
           Address:
-          <input name="state" type="text" value={this.state.state} onChange={this.handleChange} />
+          <input name="address" type="text" value={this.state.address} onChange={this.handleChange} />
       </label>
     </div>
 
     <div class="input-field col s6">
+      <label class="active">
+          City:
+          <input name="city" type="text" value={this.state.city} onChange={this.handleChange} />
+      </label>
+    </div>
+
+    <div class="input-field col s12">
       <div style={selectStyle}>
-        <select>
+        <label>
+            State:
+        </label>
+        <select value={this.state.state} onChange={this.handleChange}>
           <option value="" disabled selected>Choose your option</option>
           {States.map(States=>
             <option value={States}>{States}</option>
           )}
         </select>
-        <label>
-            State:
-        </label>
       </div>
     </div>
 
@@ -85,9 +126,13 @@ class Form extends React.Component {
       <label class="active">
           Date:
           <MuiThemeProvider muiTheme={getMuiTheme()}>
-            <DatePicker hintText="Enter Date" />
+            <DatePicker 
+              hintText="Enter Date"
+              id="dateOfEvent"
+              value={this.state.controlledDate}
+              onChange={this.handleDateChange}              
+            />
           </MuiThemeProvider>
-          <input name="date" type="text" class="datepicker" value={this.state.end} onChange={this.handleChange} />
       </label>
     </div>
 
@@ -98,9 +143,10 @@ class Form extends React.Component {
           <TimePicker
             hintText="Start Time"
             minutesStep={5}
+            value={this.state.startTime}
+            onChange={this.handleChangeStartTime} 
           />
         </MuiThemeProvider>
-        <input name="startTime" type="text" class="datepicker" value={this.state.end} onChange={this.handleChange} />
       </label>
   </div>   
 
@@ -111,17 +157,16 @@ class Form extends React.Component {
           <TimePicker
             hintText="Start Time"
             minutesStep={5}
+            value={this.state.endTime}
+            onChange={this.handleChangeEndTime}
           />
         </MuiThemeProvider>
-        <input name="endTime" type="text" class="datepicker" value={this.state.end} onChange={this.handleChange} />
       </label>
   </div>
 
     <div class="input-field col s6">
-      <label class="active">
-          Description:
-          <input name="description" type="text" value={this.state.description} onChange={this.handleChange} />
-      </label>
+          <label for="textarea1">Description</label>
+          <textarea id="textarea1" className="materialize-textarea" value={this.state.description} onChange={this.handleTextAreaChange}></textarea>
     </div>
 
         <input type="submit" value="Submit" />

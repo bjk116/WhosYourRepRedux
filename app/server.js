@@ -160,11 +160,19 @@ var cids = [];
 // 	});
 // });
 
-// // populating reelction, bills 
-// Politician.find({})
-// 	.exec(function(err, dbresults) {
-// 		dbresults.forEach(function(results, index) {
-			//results.proPublicaId instaed of N00003522
+// populating reelction, bills 
+
+	Politician.find({
+		where: {
+			proPublicaId: 'K000388'
+		}
+	})
+	.exec(function(err, dbresults) {
+		console.log('found politician');
+		console.log('dbr', dbwresults);
+		dbresults.forEach(function(results, index) {
+			console.log('dbresults', dbresults);
+			// results.proPublicaId instaed of N00003522
 			var baseQuery = "https://api.propublica.org/congress/v1/members/" + 'K000388' + ".json";
 			axios({
 				url: baseQuery,
@@ -190,10 +198,8 @@ var cids = [];
 					} else {
 						console.log('updated term and roles');
 					}
-				});
-			
+				})
 			});
 
-			// });
-// 	});
-// });
+		});
+	});
