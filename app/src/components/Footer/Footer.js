@@ -1,10 +1,8 @@
-// Include React
-var React = require("react");
-// Including the Link component from React Router to navigate within our application without full page reloads
-// var Link = require("react-router").Link;
+import React, {Component} from 'react';
+import Style from "./style.css";
 
-var Footer = React.createClass({
-  render: function() {
+class Footer extends React.Component {
+  render(){
     return (
     	<div className = "container-fluid">
         	<footer className="footer">
@@ -14,7 +12,7 @@ var Footer = React.createClass({
       </div>
     );
   }
-});
+};
 
-module.exports = Footer;
+export default Footer;
 
