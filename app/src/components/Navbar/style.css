@@ -1,8 +1,19 @@
+
 .bar {
 	height: 65px;
 	margin-bottom: 10px;
 }
 
 title {
-	font-size: 30px;
+	font-size: 100px;
+}
+
+h1{
+	font-family: 'Alegreya SC', serif;
+	font-size: 100px;
+	background: -webkit-linear-gradient(top, #2c539e 0%,#2c539e 100%); 
+}
+
+div.bar{
+	 -background: -webkit-linear-gradient(top, #2c539e 0%,#2c539e 100%);
 }

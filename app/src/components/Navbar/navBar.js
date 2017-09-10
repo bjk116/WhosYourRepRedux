@@ -52,13 +52,23 @@ class NavBar extends Component {
     this.setState({logged: logged});
   };
 
+  titleStyle = {
+    fontSize: "50px",
+  };
+
+   backgroundStyle = {
+    background: "-webkit-linear-gradient(top, #2c539e 0%,#2c539e 100%)",
+  };
+
   render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
         <div>
           <AppBar
             className="bar"
-            title="Whos your rep?"
+            titleStyle={this.titleStyle}
+            style={this.backgroundStyle}
+            title="Who's your rep?"
             iconElementRight={this.state.logged ? <Logged /> : <Login />}
             showMenuIconButton={false}
           />
