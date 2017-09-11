@@ -33,3 +33,6 @@ div#user-login-field.input-field {
 	text-align:center;
 }*/
 
+#loginerrorcard {
+	justify-content: center;
+}
