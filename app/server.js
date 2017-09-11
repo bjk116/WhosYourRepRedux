@@ -18,6 +18,22 @@ var FacebookUser = require('./models/facebookmodel');
 var FACEBOOK_APP_ID = '125732914829092';
 var FACEBOOK_APP_SECRET = 'fbb5018e2f3260adb5c32a026c313ee9';
 
+//Initialisze express
+var app = express();
+
+//Use morgan and body parser with app
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+	extended: false
+}));
+app.use(bodyParser.text());
+app.use(bodyParser.json({
+	type: 'application/vnd.api+json'
+}));
+
+
+
 passport.use(new FacebookStrategy({
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
@@ -78,19 +94,7 @@ app.get('/auth/facebook/callback',
 //Set mongoose to use promises
 mongoose.Promise = Promise;
 
-//Initialisze express
-var app = express();
 
-//Use morgan and body parser with app
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-	extended: false
-}));
-app.use(bodyParser.text());
-app.use(bodyParser.json({
-	type: 'application/vnd.api+json'
-}));
 
 require('./routes/api-routes.js')(app);
 
