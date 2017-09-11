@@ -23,3 +23,13 @@ div#user-login-field.input-field {
 #login-modal-row {
 	margin: 10px;
 }
+
+.nav-wrapper{
+	background-color:#ff4d4d;
+}
+
+/*li{
+	display:inline-block;
+	text-align:center;
+}*/
+

@@ -8,6 +8,9 @@ var bodyParser = require('body-parser');
 var logger = require('morgan');
 var request = require('request');
 
+//Set mongoose to use promises
+mongoose.Promise = Promise;
+
 //Initialisze express
 var app = express();
 
@@ -30,18 +33,34 @@ var FacebookUser = require('./models/facebookmodel');
 var FACEBOOK_APP_ID = '125732914829092';
 var FACEBOOK_APP_SECRET = 'fbb5018e2f3260adb5c32a026c313ee9';
 
+//Initialisze express
+var app = express();
+
+//db name = whosyourrep
+mongoose.connect('mongodb://localhost/whosyourrep');
+var db = mongoose.connection;
+
+db.on('error', function(error) {
+	console.log('Mongoose error: ', error);
+});
+
+db.once('open', function() {
+	console.log('Mongoose connection successful');
+});
+
+
 passport.use(new FacebookStrategy({
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:3000/auth/facebook/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
+    callbackURL: "http://localhost:3001/auth/facebook/callback"
+  }, function(accessToken, refreshToken, profile, done) {
   		// process.nextTick is a nodejs function that waits for data to come back before continuing
   		process.nextTick(function(){
   			FacebookUser.findOne({'facebook.id': profile.id}, function(err, user) {
   				if (err) {
   					console.log('error');
   					return done(err);
+  					console.log("user exists in database");
   				}
 
   				if (user) {
@@ -55,11 +74,12 @@ passport.use(new FacebookStrategy({
   					newFacebookUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
   					newFacebookUser.facebook.email = profile.emails[0].value;
 
-  					newFacebookUser.save(function(err){
+  					newFacebookUser.save(function(err, doc){
   						if (err) {
   							throw err;
   						}else {
-  							return done(null, newFacebookUser);
+  							return done(null, doc);
+  							console.log("new facebook user saved to db");
   						}
   					});
   				}
@@ -78,39 +98,26 @@ app.use(passport.session());
 // Redirect the user to Facebook for authentication.  When complete,
 // Facebook will redirect the user back to the application at
 //     /auth/facebook/callback
-app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' }));
 
 // Facebook will redirect the user to this URL after approval.  Finish the
 // authentication process by attempting to obtain an access token.  If
 // access was granted, the user will be logged in.  Otherwise,
 // authentication has failed.
 app.get('/auth/facebook/callback',
-  	passport.authenticate('facebook', { successRedirect: '/calendar',
-                                      	failureRedirect: '/' }));
+
+  passport.authenticate('facebook', { successRedirect: '/state',
+                                      failureRedirect: '/calendar' }));
 
 app.get('/test', function(req, res) {
 	console.log('clicked logo');
 });
 
-//Set mongoose to use promises
-mongoose.Promise = Promise;
-//db name = whosyourrep
-mongoose.connect('mongodb://localhost/whosyourrep');
-var db = mongoose.connection;
-
-db.on('error', function(error) {
-	console.log('Mongoose error: ', error);
-});
-
-db.once('open', function() {
-	console.log('Mongoose connection successful');
-});
-
-require('./scraper/scraper')();
 
 require('./routes/api-routes.js')(app);
 
-var PORT = 8080;
-app.listen(PORT, function() {
-	console.log('running on ', PORT);
+app.listen(3000, function() {
+	console.log('running on 3000');
 });
+
+require('./scraper/scraper')();

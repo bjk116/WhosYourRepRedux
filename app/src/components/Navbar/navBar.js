@@ -74,6 +74,8 @@ class NavBar extends Component {
           />
         </div>
       </MuiThemeProvider>
+
+      
     );
   }
 }
