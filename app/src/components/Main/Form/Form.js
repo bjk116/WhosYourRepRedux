@@ -4,7 +4,7 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import States from "../searchBar/dataSource";
 import TimePicker from 'material-ui/TimePicker';
-import $ from 'jquery';
+import {$} from 'jquery';
 
 
 

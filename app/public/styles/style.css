@@ -1,3 +1,25 @@
 body {
   text-align: center;
 }
+
+#navbar-right {
+	margin-right: 15px;
+}
+
+#navbar-left {
+	margin-right: 15px;
+}
+
+#login-modal {
+	color: black;
+	width: 400px;
+	height: 400px;
+}
+
+div#user-login-field.input-field {
+	margin: 20px;
+}
+
+#login-modal-row {
+	margin: 10px;
+}

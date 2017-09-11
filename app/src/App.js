@@ -13,7 +13,7 @@ import StatePage from "./components/Main/state/StatePage";
 import Form from "./components/Main/Form/Form";
 import Trending from "./components/Main/Trending/Trending";
 import {Switch, Route} from "react-router-dom";
-
+import UpdatedNavBar from './components/Navbar/UpdatedNavBar';
 
 // <Calendar searchBy={"state"} searchCriteria={"NJ"}/>
 class CalendarWrapper extends Component{
@@ -45,7 +45,7 @@ class App extends Component {
   render() {
     return (
       <div id="App">
-        <NavBar />
+        <UpdatedNavBar />
         <SearchBar />
 
         <Form />
