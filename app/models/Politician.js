@@ -23,7 +23,7 @@ var PoliticianSchema = new Schema({
 		type: String
 	},
 	donors: {
-		type: []
+		type: [{}]
 	},
 	twitterHandle: {
 		type: String

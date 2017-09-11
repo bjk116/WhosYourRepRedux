@@ -9,7 +9,7 @@ var UserEventSchema = new Schema({
 	},
 	state: {
 		type: String
-	}
+	},
 	title: {
 		type: String
 	},
