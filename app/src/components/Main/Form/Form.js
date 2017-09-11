@@ -5,7 +5,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import States from '../searchBar/dataSource';
 import TimePicker from 'material-ui/TimePicker';
 import axios from 'axios';
-
+import Style from "./style.css";
 
 var divStyle = {
   background: "#eee",

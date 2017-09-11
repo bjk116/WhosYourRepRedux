@@ -6,7 +6,7 @@ class PieChart extends React.Component {
     super(props);
     this.state = {
       options: {
-        title: 'Dummy Data',
+        title: 'Top Industry Donors',
         hAxis: { title: 'Age', minValue: 0, maxValue: 15 },
         vAxis: { title: 'Weight', minValue: 0, maxValue: 15 },
         legend: 'none',
@@ -32,6 +32,7 @@ class PieChart extends React.Component {
         width="100%"
         height="400px"
         legend_toggle
+        
       />
     );
   }
