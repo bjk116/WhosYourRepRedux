@@ -15,15 +15,6 @@ var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var FacebookUser = require('./models/facebookmodel');
 
-// Sets up the Express app to handle data parsing
-var app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.text());
-app.use(bodyParser.json({ type: "application/vnd.api+json" }));
-
-
-
 var FACEBOOK_APP_ID = '125732914829092';
 var FACEBOOK_APP_SECRET = 'fbb5018e2f3260adb5c32a026c313ee9';
 
