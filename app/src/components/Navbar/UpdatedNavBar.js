@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
+
 class UpdatedNavBar extends React.Component {
 	render() {
 		return(
@@ -9,6 +10,7 @@ class UpdatedNavBar extends React.Component {
 					<ul id = "navbar-left" className="left">
 						<li className="active"><Link to="/">Logo Image</Link></li>
 						<li className="active"><Link to="/">RepGenius</Link></li>
+						<li id="nav-title">Who's Your Rep?</li>
 					</ul>
 					<ul id = "navbar-right" className="right">
 						<li className = "active"><Link to="/calendar">Calendar</Link></li>
@@ -22,3 +24,6 @@ class UpdatedNavBar extends React.Component {
 }
 
 export default UpdatedNavBar;
+
+
+
