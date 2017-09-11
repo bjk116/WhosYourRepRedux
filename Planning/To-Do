@@ -3,8 +3,8 @@
 			Sunday
 -------------------------------
 ++Form
-++|--Fix onSubmit so that all values are grabbed
-++|++|--Specifically, datepicker and timepicker
+++|--Fix onSubmit so that all values are grabbed								X
+++|++|--Specifically, datepicker and timepicker									X
 ++|--Get it to go from onSubmit to database and store properly
 ++|--Make sure you can make a calendar of user events
 ++|--Create algo to get most recent events, and display in trending component

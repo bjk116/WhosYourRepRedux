@@ -7,6 +7,9 @@ var moment = require('moment');
 var Politician = require('./models/Politician');
 var express = require('express');
 var bodyParser = require('body-parser');
+var logger = require('morgan');
+var request = require('request');
+
 var session = require('express-session');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
@@ -79,8 +82,31 @@ app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { successRedirect: '/calendar',
                                       failureRedirect: '/' }));
 
+
+
 //Set mongoose to use promises
 mongoose.Promise = Promise;
+
+//Initialisze express
+var app = express();
+
+//Use morgan and body parser with app
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+	extended: false
+}));
+app.use(bodyParser.text());
+app.use(bodyParser.json({
+	type: 'application/vnd.api+json'
+}));
+
+require('./routes/api-routes.js')(app);
+
+app.listen(3000, function() {
+	conosle.log('running on 8080');
+});
+
 //for api calls later
 var eventsBaseURL = 'http://politicalpartytime.org/api/v1';
 
@@ -95,6 +121,8 @@ db.on('error', function(error) {
 db.once('open', function() {
 	console.log('Mongoose connection successful');
 });
+
+
 
 //Get all political events for poltiicians for all states
 //run at noon

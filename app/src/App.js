@@ -48,7 +48,7 @@ class App extends Component {
         <UpdatedNavBar />
         <SearchBar />
 
-        <Form />
+        <Calendar searchBy={'state'} searchCriteria={'NJ'}/>
 
         <Switch>
             <Route exact path='/calendar' component = {CalendarWrapper} />

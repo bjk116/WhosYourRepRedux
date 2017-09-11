@@ -38,3 +38,7 @@ img.center {
     display: block;
     margin: 15px auto;    
 }
+
+rect{
+    text-align:center;
+}

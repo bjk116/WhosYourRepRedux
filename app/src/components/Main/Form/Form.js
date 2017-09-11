@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import DatePicker from 'material-ui/DatePicker';
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import getMuiTheme from "material-ui/styles/getMuiTheme";
-import States from "../searchBar/dataSource";
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import States from '../searchBar/dataSource';
 import TimePicker from 'material-ui/TimePicker';
-import {$} from 'jquery';
-
-
+import axios from 'axios';
+import Style from "./style.css";
 
 var divStyle = {
   background: "#eee",
@@ -77,7 +76,20 @@ class Form extends React.Component {
       //Make sure the times make sense, ie start time can't be afterend time
       //make sure all fields are filled out
     //If there are no errors, add to database
-
+    axios.post('/user/create', {
+        user: 'userPlaceHolder',
+        state: this.state.state,
+        title: this.state.event,
+        start: this.state.controlledDate,
+        end: this.state.endTime,
+        desc: this.state.description
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   render() {
@@ -87,92 +99,92 @@ class Form extends React.Component {
 
       <form style={divStyle} onSubmit={this.handleSubmit}>
        
-    <div class="input-field col s6">
-      <label class="active">
-          Event:
-          <input name="event" type="text" value={this.state.event} onChange={this.handleChange} />
-      </label>
-    </div>
+        <div class="input-field col s6">
+          <label class="active">
+              Event:
+              <input name="event" type="text" value={this.state.event} onChange={this.handleChange} />
+          </label>
+        </div>
     
-    <div class="input-field col s6">
-      <label class="active">
-          Address:
-          <input name="address" type="text" value={this.state.address} onChange={this.handleChange} />
-      </label>
-    </div>
+        <div class="input-field col s6">
+          <label class="active">
+              Address:
+              <input name="address" type="text" value={this.state.address} onChange={this.handleChange} />
+          </label>
+        </div>
 
-    <div class="input-field col s6">
-      <label class="active">
-          City:
-          <input name="city" type="text" value={this.state.city} onChange={this.handleChange} />
-      </label>
-    </div>
+        <div class="input-field col s6">
+          <label class="active">
+              City:
+              <input name="city" type="text" value={this.state.city} onChange={this.handleChange} />
+          </label>
+        </div>
 
-    <div class="input-field col s12">
-      <div style={selectStyle}>
-        <label>
-            State:
-        </label>
-        <select value={this.state.state} onChange={this.handleChange}>
-          <option value="" disabled selected>Choose your option</option>
-          {States.map(States=>
-            <option value={States}>{States}</option>
-          )}
-        </select>
-      </div>
-    </div>
+        <div class="input-field col s12">
+          <div style={selectStyle}>
+            <label>
+                State:
+            </label>
+            <select value={this.state.state} onChange={this.handleChange}>
+              <option value="" disabled selected>Choose your option</option>
+              {States.map(States=>
+                <option value={States}>{States}</option>
+              )}
+            </select>
+          </div>
+        </div>
 
-    <div class="input-field col s6">
-      <label class="active">
-          Date:
-          <MuiThemeProvider muiTheme={getMuiTheme()}>
-            <DatePicker 
-              hintText="Enter Date"
-              id="dateOfEvent"
-              value={this.state.controlledDate}
-              onChange={this.handleDateChange}              
-            />
-          </MuiThemeProvider>
-      </label>
-    </div>
+        <div class="input-field col s6">
+          <label class="active">
+              Date:
+              <MuiThemeProvider muiTheme={getMuiTheme()}>
+                <DatePicker 
+                  hintText="Enter Date"
+                  id="dateOfEvent"
+                  value={this.state.controlledDate}
+                  onChange={this.handleDateChange}              
+                />
+              </MuiThemeProvider>
+          </label>
+        </div>
 
-  <div class="input-field col s6">
-      <label class="active">
-        Start Time:
-        <MuiThemeProvider muiTheme={getMuiTheme()}>
-          <TimePicker
-            hintText="Start Time"
-            minutesStep={5}
-            value={this.state.startTime}
-            onChange={this.handleChangeStartTime} 
-          />
-        </MuiThemeProvider>
-      </label>
-  </div>   
+        <div class="input-field col s6">
+            <label class="active">
+              Start Time:
+              <MuiThemeProvider muiTheme={getMuiTheme()}>
+                <TimePicker
+                  hintText="Start Time"
+                  minutesStep={5}
+                  value={this.state.startTime}
+                  onChange={this.handleChangeStartTime} 
+                />
+              </MuiThemeProvider>
+            </label>
+        </div>   
 
-  <div class="input-field col s6">
-      <label class="active">
-        End Time:
-        <MuiThemeProvider muiTheme={getMuiTheme()}>
-          <TimePicker
-            hintText="Start Time"
-            minutesStep={5}
-            value={this.state.endTime}
-            onChange={this.handleChangeEndTime}
-          />
-        </MuiThemeProvider>
-      </label>
-  </div>
+        <div class="input-field col s6">
+            <label class="active">
+              End Time:
+              <MuiThemeProvider muiTheme={getMuiTheme()}>
+                <TimePicker
+                  hintText="Start Time"
+                  minutesStep={5}
+                  value={this.state.endTime}
+                  onChange={this.handleChangeEndTime}
+                />
+              </MuiThemeProvider>
+            </label>
+        </div>
 
-    <div class="input-field col s6">
-          <label for="textarea1">Description</label>
-          <textarea id="textarea1" className="materialize-textarea" value={this.state.description} onChange={this.handleTextAreaChange}></textarea>
-    </div>
+        <div class="input-field col s6">
+              <label for="textarea1">Description</label>
+              <textarea id="textarea1" className="materialize-textarea" value={this.state.description} onChange={this.handleTextAreaChange}></textarea>
+        </div>
 
         <input type="submit" value="Submit" />
 
 
-      </form>
+        </form>
       </div>
     );
   }

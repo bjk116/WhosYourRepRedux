@@ -3,6 +3,10 @@ var Schema = mongoose.Schema;
 
 var UserEventSchema = new Schema({
 	//initial
+	//change this to Schema.type.ObjectId, ref: User in future
+	creator: {
+		type: String
+	},
 	state: {
 		type: String
 	}
@@ -18,9 +22,7 @@ var UserEventSchema = new Schema({
 	desc: {
 		type: String
 	},
-	cause: {
-		type: String
-	},
+	//to be used in trending area
 	upvotes: {
 		type: Number,
 		default: 0
