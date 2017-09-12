@@ -7,7 +7,7 @@ class TopStateDonors extends React.Component {
 
 	getPoliticianDonorTotals(userInputForStateID) {
 
-		var politiciansDonorSum = [];
+		var politiciansDonorSum = [["Politician", "Total"]];
 
 		axios({
 			url: "/reps/" + userInputForStateID,
@@ -87,7 +87,7 @@ class TopStateDonors extends React.Component {
 		}
 	}
 
-	componentDidMount() {
+	componentWillMount() {
 		console.log("component mounted with manually entered props of: " + this.props.stateID);
 		var stateID = this.props.stateID;
 		this.getPoliticianDonorTotals(stateID);
@@ -104,27 +104,24 @@ class TopStateDonors extends React.Component {
 			<div className = "row">
 				<h1>State Info for {this.props.stateID}</h1>
 				<div className = "divider"></div>
-				<div className = "col s7 m7 lg7">
+				<div className = "col s8 m8 lg8">
 				{/*<DonorChart donorsData={this.state.politiciansDonors} />*/}
 				<Chart
 					chartType="BarChart"
-					data={[
-							["Politician", "Totals"],
-							[this.state.politiciansDonors]
-						]}
+					data={this.state.politiciansDonors}
 					options={{
-						title: "Total industry contributions for each of the state's politicians",
+						title: "Total industry contributions for each of the state's national-level politicians",
 						legend: { position: 'top', maxLines: 4 },
 						// isStacked: true,
-						bar: { groupWidth: '25%'}
+						// bar: { groupWidth: '25%'}
 					}}
 					graph_id="BarChart"
-					width="100%"
-					height="400px"
+					width="80%"
+					height="600px"
 					legend_toggle
 				/>
 				</div>
-				<div className = "col s5 m5 lg5">
+				<div className = "col s4 m4 lg4">
 				<Chart 
 					chartType="PieChart"
 					data={[
