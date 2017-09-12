@@ -9,7 +9,7 @@ class UpdatedNavBar extends React.Component {
 				<div className="nav-wrapper">
 					<a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
 					<ul id="nav-mobile" className="left hide-on-med-and-down" className="left" >
-						<li className="active"><Link to="logo.png"><a href="index.html"><img src="logo.png"/></a></Link></li>
+						<li><Link to="logo2.png"><a id="img-link" href="index.html"><img src="logo2.png" id="logo-img"/></a></Link></li>
 						<li className="active"><Link to="/">RepGenius</Link></li>
 						<li id="nav-title">Who's Your Rep?</li>
 					</ul>

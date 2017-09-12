@@ -32,3 +32,11 @@ li{
 	position:relative;
 	left: 390px;
 }
+
+#logo-img{
+	width:30%;
+}
+
+#img-link{
+	padding:0;
+}
