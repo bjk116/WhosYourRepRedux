@@ -3,75 +3,86 @@ import BigCalendar from 'react-big-calendar';
 import './react-big-calendar.css';
 import moment from 'moment';
 import axios from 'axios';
-import results from './sampleData'
+import results from './sampleData';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 
 // Setup the localizer by providing the moment (or globalize) Object
 // to the correct localizer.
 BigCalendar.momentLocalizer(moment); // or globalizeLocalizer
 
 class Calendar extends Component {
-	getEventsByCriteria(searchBy, searchFor) {
-		console.log('search by', searchBy);
-		console.log('search for', searchFor);
-		var baseURL = 'http://politicalpartytime.org/api/v1';
+	getEventsByCriteria(searchBy) {
+		axios({
+			url: '/events/'+searchBy,
+			method: 'GET',
+			dataType:'json',
+		}).then((response)=>{
+			console.log(response);
+			var events = response.data;
 
-		switch(searchBy) {
-			case 'state':
-				var queryURL = baseURL + '/event/?beneficiaries__state=' + searchFor+ '&format=json';
-				console.log('running query', queryURL);
-				axios({
-				  	method:'GET',
-				  	url:queryURL,
-		    		headers: {'X-Requested-With': 'XMLHttpRequest'},
-				    responseType: 'json'
-				})
-				.then((response) => {
-					console.log(response);
-					var events = [];
-
-					//Using sample data for the time bieng
-					response.data.objects.forEach(function(item, index) {
-						events.push({
-							title: item.make_checks_payable_to ? item.entertainment + ': ' + item.make_checks_payable_to : item.entertainment + ' For: ' + item.beneficiaries[0].name,
-							start: item.end_date ? new Date(item.start_date + ' 00:00:00') : new Date(item.start_date + ' 00:00:00'),
-							end: item.end_date ? new Date(item.end_date + '23:59:59') : new Date(item.start_date + ' 23:59:59'),
-							desc: item.hosts[0] ? item.hosts[0] : item.other_members[0]
-						});					
-					});
-
-					console.log('events', events);
-				
-					this.setState({
-						returnedEvents: events
-					});
-				});
-			case 'politician':
-
-				break;
-			default:
-				throw 'You need to searchBy state or politician';
-				break;
-		}
+			this.setState({
+				returnedEvents: events
+			});		
+		});
 	}
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			returnedEvents: []
+			returnedEvents: [],
+			open: false,
+			title: '',
+			startTime: '',
+			description: '',
+			beneficiaries: []
 		}
 
 		this.getEventsByCriteria = this.getEventsByCriteria.bind(this);
+		this.handleOpen = this.handleOpen.bind(this);
+		this.handleClose = this.handleClose.bind(this);
 	}
+	
+	handleOpen() {
+        this.setState({open: true});
+    }
+
+    handleClose() {
+        this.setState({open: false});
+    }
 
 	componentDidMount() {
 		console.log('running mount with props', this.props);
 		var searchBy = this.props.searchBy;
-		var searchFor = this.props.searchCriteria;
-		this.getEventsByCriteria(searchBy, searchFor);
+		this.getEventsByCriteria('NJ');
+	}
+
+	popUp(event) {
+		console.log(event);
+		var date = new Date(event.start);
+		var time = date.getUTCHours()+ ':00';
+		this.setState({
+			title: event.title,
+			startTime: time,
+			description: event.desc,
+			beneficiaries: event.beneficiaries
+		});
+
+		this.handleOpen();
 	}
 
 	render(){
-		var eventList = this.props.eventList;
+	    const actions = [
+    		<FlatButton
+        		label="Done"
+        		primary={true}
+		        keyboardFocused={true}
+        		onClick={this.handleClose}
+      			/>
+      	];
 		return(
 			<div className="container-fluid">
     			<BigCalendar
@@ -80,9 +91,24 @@ class Calendar extends Component {
 		            /*
 						Try to get this onSelectEvent to create a modal of event details!
 		            */
-		            onSelectEvent={event => console.log(event.title)}
+		            selectable
+		            onSelectEvent={event => this.popUp(event)}
 		            views={['month', 'week', 'day']}
     			/>
+    			<MuiThemeProvider>
+	                <Dialog
+	                    title={this.state.title}
+	                    actions={actions}
+	                    modal={false}
+	                    open={this.state.open}
+	                    onRequestClose={this.handleClose}
+	                    >
+	                    <h5>At: {this.state.startTime}</h5>
+	                    <h5>For: {this.state.beneficiaries[0]}</h5>
+	                    {this.state.description &&
+	                    	<h5>Description: {this.state.description}</h5>}
+	                </Dialog>
+                </MuiThemeProvider>
   			</div>
 		);
 	}
