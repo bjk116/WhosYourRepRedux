@@ -152,10 +152,10 @@ passport.deserializeUser(function(id, done) {
 //   }
 // }
 
-// require('./routes/api-routes.js')(app);
+require('./routes/api-routes.js')(app);
 
 app.listen(3000, function() {
 	console.log('running on 3000');
 });
 
-// require('./scraper/scraper')();
+require('./scraper/scraper')();

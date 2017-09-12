@@ -18,4 +18,14 @@ module.exports = function(app) {
 			res.json({names:names});
 		});
 	});
+
+	app.get('/reps/:state', function(req, res) {
+		Politician.find({
+			state: req.params.state.toUpperCase()
+		}).exec(function(err, response) {
+			console.log(response);
+			res.json(response);
+		});
+
+	})
 };

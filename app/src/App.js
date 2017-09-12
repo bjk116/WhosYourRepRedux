@@ -71,7 +71,6 @@ function renderSuggestion(suggestion, { query }) {
   );
 }
 
-
 // <Calendar searchBy={"state"} searchCriteria={"NJ"}/>
 class CalendarWrapper extends Component{
   constructor(props) {
@@ -187,8 +186,17 @@ class App extends Component {
         {this.state.validSearch &&
           <Route exact path='/calendar' component = {CalendarWrapper} />
         }
-          
+
+        {!this.state.validSearch &&
+        <Switch>
+          <Route exact path='/calendar' component = {CalendarWrapper} />
+          <Route exact path = '/state' component = {StatePageWrapper} />
+          <Route exact path = '/loginerror' component = {LoginError} />    
+        </Switch>
+        }  
+
         <Footer />
+        
       </div>
     );
     }
