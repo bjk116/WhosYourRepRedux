@@ -19,15 +19,15 @@ import AutoComplete from "material-ui/AutoComplete";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Source from "./components/Main/searchBar/dataSource";
-import Style from "./components/Main/searchBar/style.css";
 import JSONP from "jsonp";
 import Autosuggest from "react-autosuggest";
+import SearchStyle from "./styles/searchStyle.css";
 
 //SearchBar Functions
 var AutosuggestHighlightMatch = require("autosuggest-highlight/match");
 var AutosuggestHighlightParse = require("autosuggest-highlight/parse");
-var style = Style;
 var data = Source;
+var searchStyle = SearchStyle;
 
 function escapeRegexCharacters(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -171,7 +171,7 @@ class App extends Component {
       <div id="App">
         <UpdatedNavBar />
         <Autosuggest 
-          style={style}
+          theme = {searchStyle}
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}

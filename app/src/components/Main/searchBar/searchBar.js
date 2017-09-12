@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from "react";
 import Source from "./dataSource";
 import Autosuggest from "react-autosuggest";
@@ -8,25 +7,12 @@ var AutosuggestHighlightMatch = require("autosuggest-highlight/match");
 var AutosuggestHighlightParse = require("autosuggest-highlight/parse");
 var style = Styles;
 var data = Source;
-=======
-// import React, {Component} from "react";
-
->>>>>>> 53cbc37f872f52478aeff2251231e13c604ad82e
-
-
 
 // class SearchBar extends React.Component {
-
-
-
-  
-
 
 //   render() 
 
 //     return (
-
-<<<<<<< HEAD
     return (
       <Autosuggest 
         theme={style}
@@ -39,10 +25,4 @@ var data = Source;
     );
   }
 }
-=======
-//     );
-//   }
-// }
->>>>>>> 53cbc37f872f52478aeff2251231e13c604ad82e
-
 // export default SearchBar;
