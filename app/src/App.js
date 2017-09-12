@@ -7,7 +7,6 @@ import Main from "./components/Main/Main";
 import Calendar from "./components/Main/calendar/Calendar";
 import PieChart from "./components/Main/chart/chart";
 import Politician from "./components/Main/politician/Politician";
-import SearchBar from "./components/Main/searchBar/searchBar";
 import StatePage from "./components/Main/state/StatePage";
 
 import Form from "./components/Main/Form/Form";
@@ -15,6 +14,63 @@ import Trending from "./components/Main/Trending/Trending";
 import {Switch, Route} from "react-router-dom";
 import UpdatedNavBar from './components/Navbar/UpdatedNavBar';
 import LoginError from './components/testComponents/LoginError';
+
+//Searchbar stuff
+import AutoComplete from "material-ui/AutoComplete";
+import getMuiTheme from "material-ui/styles/getMuiTheme";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import Source from "./components/Main/searchBar/dataSource";
+import Style from "./components/Main/searchBar/style.css";
+import JSONP from "jsonp";
+import Autosuggest from "react-autosuggest";
+
+//SearchBar Functions
+var AutosuggestHighlightMatch = require("autosuggest-highlight/match");
+var AutosuggestHighlightParse = require("autosuggest-highlight/parse");
+var style = Style;
+var data = Source;
+
+function escapeRegexCharacters(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function getSuggestions(value) {
+  const escapedValue = escapeRegexCharacters(value.trim());
+  
+  if (escapedValue === "") {
+    return [];
+  }
+
+  const regex = new RegExp("\\b" + escapedValue, "i");
+  
+  return data.filter(item => regex.test(getSuggestionValue(item)));
+}
+
+function getSuggestionValue(suggestion) {
+  return `${suggestion}`;
+}
+
+function renderSuggestion(suggestion, { query }) {
+  const matches = AutosuggestHighlightMatch(suggestion, query);
+  const parts = AutosuggestHighlightParse(suggestion, matches);
+
+  return (
+    <span className={"suggestion-content " + suggestion}>
+      <span className="name">
+        {
+          parts.map((part, index) => {
+            const className = part.highlight ? "highlight" : null;
+
+            return (
+              <span className={className} key={index}>{part.text}</span>
+            );
+          })
+        }
+      </span>
+    </span>
+  );
+}
+
 
 // <Calendar searchBy={"state"} searchCriteria={"NJ"}/>
 class CalendarWrapper extends Component{
@@ -50,31 +106,67 @@ class App extends Component {
       currentComponent : "/state",
       loggedInStatus : false,
       calendar: 'NJ',
-    }
+      value: "",
+      suggestions: []
+    };    
   }
 
-  check() {
-    console.log(this.searchValue.state);
+  //this function determines whether the search is a state or person, and then routes appropriately
+  searchParser(input){
+
   }
 
-  render() {
-    return (
-      <div id="App">
-        <UpdatedNavBar />
+  onChange = (event, { newValue, method }) => {
+    this.setState({
+      value: newValue
+    });
+  };
 
-        <SearchBar />
+  onSuggestionsFetchRequested = ({ value }) => {
+    this.setState({
+      suggestions: getSuggestions(value)
+    });
+  };
 
-        {/*<Calendar searchBy={'state'} searchCriteria={'NJ'}/>*/}
+  onSuggestionsClearRequested = () => {
+    this.setState({
+      suggestions: []
+    });
+  };
 
-        <Switch>
+  render(){
+              {
+                const { value, suggestions } = this.state;
+                const inputProps = {
+                placeholder: "Search",
+                value,
+                onChange: this.onChange
+              };
+      return (
+        <div id="App">
+          <UpdatedNavBar />
+
+          <Autosuggest 
+            style={style}
+            suggestions={suggestions}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            getSuggestionValue={getSuggestionValue}
+            renderSuggestion={renderSuggestion}
+            inputProps={inputProps}
+          />
+          {/*<Calendar searchBy={'state'} searchCriteria={'NJ'}/>*/}
+
+          <Switch>
             <Route exact path='/calendar' component = {CalendarWrapper} />
             <Route exact path = '/state' component = {StatePageWrapper} />
             <Route exact path = '/loginerror' component = {LoginError} />    
-        </Switch>
+          </Switch>
 
-        <Footer />
-      </div>
-    );
+          <Footer />
+        </div>
+      );
+    }
   }
 }
 
