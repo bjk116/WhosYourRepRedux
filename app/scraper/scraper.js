@@ -46,10 +46,15 @@ function calendarEventsScraper() {
 
 				apiEvent.state = stateinitial;
 				apiEvent.title = event.entertainment;
-				apiEvent.start = event.end_date ? new Date(event.start_date + ' 00:00:00') : new Date(event.start_date + ' 00:00:00');
-				apiEvent.end = event.end_date ? new Date(event.end_date + '23:59:59') : new Date(event.start_date + ' 23:59:59');
+				//all events 1 hour, due to their bad api
+				var startDate = new Date(event.start_date);
+
+				var modifiedStartDate = new Date(startDate.getUTCFullYear(), startDate.getUTCDate(), startDate.getUTCMonth(), 8);
+				var modifiedEndDate = new Date(startDate.getUTCFullYear(), startDate.getUTCDate(), startDate.getUTCMonth(), 9);
+				apiEvent.start = modifiedStartDate;
+				apiEvent.end = modifiedEndDate;
 				apiEvent.desc = event.make_checks_payable_to;
-				apiEvent.location = event.venue.address1 + ', ' + event.venue.state + ', ' + event.venue.city;
+				apiEvent.location = event.venue.address1 ?  event.venue.address1 + ', ' + event.venue.city+ '. ' + event.venue.state : event.venue.city+ '. ' + event.venue.state;
 
 				var newEvent = new ApiEvents(apiEvent);
 
@@ -66,49 +71,6 @@ function calendarEventsScraper() {
 			console.log('Error on ' + errcount + ' events');
 		});
 
-	});
-}
-
-//This doesn't run right now due to api limit
-function donorsPoliticianScraper() {
-	console.log('INSIDE DONORS');
-	//instead of N000..., results.propbulica
-	Politician.find({})
-	.exec(function(err, dbresponse) {
-		
-		dbresponse.forEach(function(item, index) {
-			//must use CID here
-			var queryURL = 'http://www.opensecrets.org/api/?method=candIndustry&cid='+item.cid+'&cycle=2016&apikey='+opensecretsAPIKey+'&output=json';
-			//for each representative, reps.ForEach() here
-			axios({
-				url: queryURL,
-				method: 'GET',
-				dataType: 'json'
-			}).then((resp)=>{
-
-				var donors = [];
-				resp.data.response.industries.industry.forEach(function(item, index) {
-					var donor = {};
-					donor.industry = item['@attributes'].industry_name;
-					donor.total = item['@attributes'].total;
-					donors.push(donor);
-				});
-
-				//save into db of correct politician
-				Politician.findOneAndUpdate({
-					cid: item.cid
-				},{
-					donors: donors
-				}
-				).exec(function(err, doc) {
-					if(err) {
-						console.log(err);
-					} else {
-						console.log('updated donors, ', doc);
-					}
-				});
-			});
-		});
 	});
 }
 

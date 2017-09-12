@@ -142,6 +142,7 @@ class App extends Component {
       value: newValue,
       currentComponent: newCurrentComponent,
       componentParameters: newValue,
+      loggedInState: false,
       validSearch: (newCurrentComponent == '/state' || newCurrentComponent == '/politician') ? true : false
     });
 
@@ -171,7 +172,7 @@ class App extends Component {
       <div id="App">
         <UpdatedNavBar />
         <Autosuggest 
-          theme = {searchStyle}
+          theme = {this.searchStyle}
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
@@ -180,17 +181,8 @@ class App extends Component {
           inputProps={inputProps}
         />
 
-        {this.state.validSearch &&
-          <Route exact path='/calendar' component = {CalendarWrapper} />
-        }
-
-        {!this.state.validSearch &&
-          <Switch>
-            <Route exact path='/calendar' component = {CalendarWrapper} />
-            <Route exact path = '/state' component = {StatePageWrapper} />
-            <Route exact path = '/loginerror' component = {LoginError} />    
-          </Switch>
-        }  
+        <Calendar searchFor={"NJ"}/>
+  
         <Footer />
         
       </div>

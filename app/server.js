@@ -33,6 +33,7 @@ var FacebookUser = require('./models/facebookmodel');
 var FACEBOOK_APP_ID = '125732914829092';
 var FACEBOOK_APP_SECRET = 'fbb5018e2f3260adb5c32a026c313ee9';
 
+var port = process.env.PORT || 3000;
 
 
 //db name = whosyourrep
@@ -154,8 +155,8 @@ passport.deserializeUser(function(id, done) {
 
 require('./routes/api-routes.js')(app);
 
-app.listen(3000, function() {
-	console.log('running on 3000');
+app.listen(PORT, function() {
+	console.log('running on ', PORT);
 });
 
 require('./scraper/scraper')();
