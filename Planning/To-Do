@@ -11,8 +11,15 @@
 
 
 ++Scraper
-++|--Refactor scraper to another js file
-+++++|--Make sure that it runs all in a row, correctly
+++|--Refactor scraper to another js file										X
+  +++|--Make sure that it runs all in a row, correctly 							X
+
+++Tuesday
+++|--Refactor searchBar into App.js
+++|--Figure out opensecrets scrape solution
+  +++|--Slow learning solution
+++|--react-dom-router based on searches 
+
 
 
 ++app.js state?

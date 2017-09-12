@@ -97,7 +97,8 @@ class SearchBar extends React.Component {
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}
         getSuggestionValue={getSuggestionValue}
         renderSuggestion={renderSuggestion}
-        inputProps={inputProps} />
+        inputProps={inputProps}
+        />
     );
   }
 }

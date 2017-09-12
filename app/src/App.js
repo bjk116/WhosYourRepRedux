@@ -17,9 +17,18 @@ import UpdatedNavBar from './components/Navbar/UpdatedNavBar';
 
 // <Calendar searchBy={"state"} searchCriteria={"NJ"}/>
 class CalendarWrapper extends Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchCriteria: 'NJ'
+    };
+  }
+
+
+  //we keep searchCriteria in state
   render() {
     return(
-        <Calendar searchBy={"state"} searchCriteria={"NJ"}/>
+        <Calendar searchBy={"state"} searchCriteria={this.state.searchCriteria}/>
     );
   }
 }
@@ -39,17 +48,22 @@ class App extends Component {
     this.state = {
       currentComponent : "/state",
       loggedInStatus : false,
+      calendar: 'NJ',
     }
+  }
+
+  check() {
+    console.log(this.searchValue.state);
   }
 
   render() {
     return (
       <div id="App">
         <UpdatedNavBar />
-        <SearchBar />
-
-        <Calendar searchBy={'state'} searchCriteria={'NJ'}/>
-
+        <SearchBar 
+          ref={(value) => {this.searchValue = value;}}
+        />
+        <button onClick={this.check}>Clicky</button>
         <Switch>
             <Route exact path='/calendar' component = {CalendarWrapper} />
             <Route exact path = '/state' component = {StatePageWrapper} />      
