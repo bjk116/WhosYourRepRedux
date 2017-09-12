@@ -14,6 +14,7 @@ import Form from "./components/Main/Form/Form";
 import Trending from "./components/Main/Trending/Trending";
 import {Switch, Route} from "react-router-dom";
 import UpdatedNavBar from './components/Navbar/UpdatedNavBar';
+import LoginError from './components/testComponents/LoginError';
 
 // <Calendar searchBy={"state"} searchCriteria={"NJ"}/>
 class CalendarWrapper extends Component{
@@ -48,11 +49,12 @@ class App extends Component {
         <UpdatedNavBar />
         <SearchBar />
 
-        <Calendar searchBy={'state'} searchCriteria={'NJ'}/>
+        {/*<Calendar searchBy={'state'} searchCriteria={'NJ'}/>*/}
 
         <Switch>
             <Route exact path='/calendar' component = {CalendarWrapper} />
-            <Route exact path = '/state' component = {StatePageWrapper} />      
+            <Route exact path = '/state' component = {StatePageWrapper} />
+            <Route exact path = '/loginerror' component = {LoginError} />    
         </Switch>
 
         <Footer />

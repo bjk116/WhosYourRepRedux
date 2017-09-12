@@ -10,6 +10,12 @@
 ++|--Create algo to get most recent events, and display in trending component
 
 
+++Scraper
+++|--Refactor scraper to another js file
++++++|--Make sure that it runs all in a row, correctly
+
+
+++app.js state?
 this.state = { 
 				currentState: '', //to be something like NJ, for passing into components that require it
 			}
