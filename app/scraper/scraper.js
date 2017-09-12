@@ -10,6 +10,8 @@ var axios = require('axios');
 var opensecretsAPIKey = '0e11c0ea5a983dc2004af32bd38156c1';
 //Rebecca
 //var opensecretsAPIKey = '3da199dd81facd0573805a2e099abd45';
+//additional key
+//var opensecretsAPIKey = 'f6c7bd41f17ff86b93da41debbc29a2b';
 
 
 function calendarEventsScraper() {
