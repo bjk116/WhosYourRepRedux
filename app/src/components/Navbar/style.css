@@ -30,7 +30,14 @@ li{
 #nav-title{
 	font-size:40px;
 	position:relative;
-	left: 390px;
+}
+
+#nav-title-class{
+	font-size:40px;
+	position:relative;
+	left:200px;
+	padding-right:100px;
+
 }
 
 #logo-img{
