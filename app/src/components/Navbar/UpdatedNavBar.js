@@ -7,11 +7,10 @@ class UpdatedNavBar extends React.Component {
 		return(
 			<nav>
 				<div className="nav-wrapper">
-					<a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
 					<ul id="nav-mobile" className="left hide-on-med-and-down" className="left" >
-						<li><Link to="logo2.png"><a id="img-link" href="index.html"><img src="logo2.png" id="logo-img"/></a></Link></li>
+						<li><img src="logo2.png" id="logo-img" /></li>
 						<li className="active"><Link to="/">RepGenius</Link></li>
-						<li id="nav-title">Who's Your Rep?</li>
+						<li id="nav-title" className="title">Who's Your Rep?</li>
 					</ul>
 					<ul id="nav-mobile" className="right hide-on-med-and-down" className="right">
 						<li className ="active"><Link to="/calendar">Calendar</Link></li>
