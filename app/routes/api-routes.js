@@ -1,4 +1,5 @@
 var UserEvents = require('../models/UserEvents');
+var ApiEvents = require('../models/ApiEvents');
 var Politician = require('../models/Politician');
 var mongoose = require('mongoose');
 var axios = require('axios');
@@ -7,7 +8,7 @@ mongoose.Promise = Promise;
 var opensecretsAPIKey = 'f6c7bd41f17ff86b93da41debbc29a2b';
 
 module.exports = function(app) {
-	app.post('/user/create', function(req, res) {
+	app.post('/event/create', function(req, res) {
 		console.log(req.body);
 	});
 
@@ -89,5 +90,18 @@ module.exports = function(app) {
 		});
 	});
 
+	app.get('/events/:state', function(req, res) {
+		console.log('running for ', req.params.state.toUpperCase());
+		ApiEvents.find({
+			state: req.params.state.toUpperCase()
+		}).exec(function(err, response) {
+			if(err) {
+				res.send(err);
+			} else {
+				console.log(response);
+				res.json(response);
+			}
+		});
+	});
 
 	};

@@ -144,6 +144,7 @@ class App extends Component {
       value: newValue,
       currentComponent: newCurrentComponent,
       componentParameters: newValue,
+      loggedInState: false,
       validSearch: (newCurrentComponent == '/state' || newCurrentComponent == '/politician') ? true : false
     });
 
@@ -183,6 +184,18 @@ class App extends Component {
           inputProps={inputProps}
         />
 
+        <Calendar searchFor={"NJ"}/>
+  
+
+        <Footer />
+        
+      </div>
+    );
+    }
+  }
+}
+
+/*
         {this.state.validSearch &&
           <Route exact path='/calendar' component = {CalendarWrapper} />
         }
@@ -193,18 +206,7 @@ class App extends Component {
           <Route exact path = '/state' component = {StatePageWrapper} />
           <Route exact path = '/loginerror' component = {LoginError} />    
         </Switch>
-        }  
-
-        <Footer />
-        
-      </div>
-    );
-    }
-  }
-}
-
-
+        }
+*/
 
 export default App;
-
-
