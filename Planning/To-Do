@@ -9,10 +9,22 @@
 ++|--Make sure you can make a calendar of user events
 ++|--Create algo to get most recent events, and display in trending component
 
-
+===============================
+			Monday
+-------------------------------
 ++Scraper
-++|--Refactor scraper to another js file
-+++++|--Make sure that it runs all in a row, correctly
+++|--Refactor scraper to another js file										X
+  +++|--Make sure that it runs all in a row, correctly 							X
+
+===============================
+			Tuesday
+-------------------------------
+++Refactor searchBar into App.js												X, 15 minutes
+++-Figure out opensecrets scrape solution
+  +|--Slow learning solution
+++react-dom-router based on searches
+  |--Determine whether search is state or person								X, 30 minutes ('missing () threw me off for a |--Go to approrpriate route																	long time')
+	 
 
 
 ++app.js state?
