@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import Source from "./dataSource";
 import Autosuggest from "react-autosuggest";
@@ -7,84 +8,25 @@ var AutosuggestHighlightMatch = require("autosuggest-highlight/match");
 var AutosuggestHighlightParse = require("autosuggest-highlight/parse");
 var style = Styles;
 var data = Source;
+=======
+// import React, {Component} from "react";
 
-function escapeRegexCharacters(str) {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
+>>>>>>> 53cbc37f872f52478aeff2251231e13c604ad82e
 
-function getSuggestions(value) {
-  const escapedValue = escapeRegexCharacters(value.trim());
+
+
+// class SearchBar extends React.Component {
+
+
+
   
-  if (escapedValue === "") {
-    return [];
-  }
 
-  const regex = new RegExp("\\b" + escapedValue, "i");
-  
-  return data.filter(item => regex.test(getSuggestionValue(item)));
-}
 
-function getSuggestionValue(suggestion) {
-  return `${suggestion}`;
-}
+//   render() 
 
-function renderSuggestion(suggestion, { query }) {
-  const matches = AutosuggestHighlightMatch(suggestion, query);
-  const parts = AutosuggestHighlightParse(suggestion, matches);
+//     return (
 
-  return (
-    <span className={"suggestion-content " + suggestion}>
-      <span className="name">
-        {
-          parts.map((part, index) => {
-            const className = part.highlight ? "highlight" : null;
-
-            return (
-              <span className={className} key={index}>{part.text}</span>
-            );
-          })
-        }
-      </span>
-    </span>
-  );
-}
-
-class SearchBar extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      value: "",
-      suggestions: []
-    };    
-  }
-
-  onChange = (event, { newValue, method }) => {
-    this.setState({
-      value: newValue
-    });
-  };
-  
-  onSuggestionsFetchRequested = ({ value }) => {
-    this.setState({
-      suggestions: getSuggestions(value)
-    });
-  };
-
-  onSuggestionsClearRequested = () => {
-    this.setState({
-      suggestions: []
-    });
-  };
-
-  render() {
-    const { value, suggestions } = this.state;
-    const inputProps = {
-      placeholder: "Search",
-      value,
-      onChange: this.onChange
-    };
-
+<<<<<<< HEAD
     return (
       <Autosuggest 
         theme={style}
@@ -97,5 +39,10 @@ class SearchBar extends React.Component {
     );
   }
 }
+=======
+//     );
+//   }
+// }
+>>>>>>> 53cbc37f872f52478aeff2251231e13c604ad82e
 
-export default SearchBar;
+// export default SearchBar;

@@ -5,11 +5,13 @@ var mongoose = require('mongoose');
 var stateInitials = require('./cron-helper/states');
 var axios = require('axios');
 //Jaylesh
-// var opensecetsAPIKey = 'ae20f4a9d0bfa0a12552aa9c592440cb';
+// var opensecretsAPIKey = 'ae20f4a9d0bfa0a12552aa9c592440cb';
 //Brian
 var opensecretsAPIKey = '0e11c0ea5a983dc2004af32bd38156c1';
 //Rebecca
 //var opensecretsAPIKey = '3da199dd81facd0573805a2e099abd45';
+//additional key
+//var opensecretsAPIKey = 'f6c7bd41f17ff86b93da41debbc29a2b';
 
 
 function calendarEventsScraper() {
@@ -76,7 +78,7 @@ function donorsPoliticianScraper() {
 		
 		dbresponse.forEach(function(item, index) {
 			//must use CID here
-			var queryURL = 'http://www.opensecrets.org/api/?method=candIndustry&cid='+item.cid+'&cycle=2016&apikey='+opensecetsAPIKey+'&output=json';
+			var queryURL = 'http://www.opensecrets.org/api/?method=candIndustry&cid='+item.cid+'&cycle=2016&apikey='+opensecretsAPIKey+'&output=json';
 			//for each representative, reps.ForEach() here
 			axios({
 				url: queryURL,
@@ -170,7 +172,7 @@ function initialPoliticianScraper() {
 
 	//Scrape and store initial poltiicans from open secrets
 	stateInitials.forEach(function(state, index) {
-		var queryURL = 'http://www.opensecrets.org/api/?method=getLegislators&id=' + state + '&apikey=' + opensecetsAPIKey + '&output=json';
+		var queryURL = 'http://www.opensecrets.org/api/?method=getLegislators&id=' + state + '&apikey=' + opensecretsAPIKey + '&output=json';
 
 		var polsCID = [];
 		var polsDonors = [];
@@ -199,6 +201,7 @@ function initialPoliticianScraper() {
 			reps.forEach(function(rep, index) {
 				//for each rep in the state, make rep object and save to db
 				var politician = {};
+				politician.state = state;
 				politician.cid = rep.cid;
 				politician.position = 'Representative';
 				politician.name = rep.firstlast;
@@ -219,6 +222,7 @@ function initialPoliticianScraper() {
 			sens.forEach(function(sen, index) {
 				//for each senator in state, make object and store in db
 				var politician = {};
+				politician.state = state;
 				politician.cid = sen.cid;
 				politician.position = 'Senator';
 				politician.name = sen.firstlast;

@@ -37,6 +37,9 @@ var PoliticianSchema = new Schema({
 	events: {
 		type: [Schema.Types.ObjectId],
 		ref: "ApiEvents"
+	},
+	state: {
+		type: String
 	}
 });
 
