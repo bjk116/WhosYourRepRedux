@@ -171,7 +171,7 @@ class App extends Component {
       <div id="App">
         <UpdatedNavBar />
         <Autosuggest 
-          theme = {searchStyle}
+          theme = {this.searchStyle}
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
