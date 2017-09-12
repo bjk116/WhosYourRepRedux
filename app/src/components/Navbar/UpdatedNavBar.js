@@ -9,7 +9,7 @@ class UpdatedNavBar extends React.Component {
 				<div className="nav-wrapper">
 					<ul id = "navbar-left" className="left">
 
-						<li className="active"><Link to="logo.png"><a href="logo.png">Portfolio</a></Link></li>
+						<li className="active"><Link to="logo.png"><a href="logo.png"></a></Link></li>
 
 						<li className="active"><a href="/test">Logo Image</a></li>
 
