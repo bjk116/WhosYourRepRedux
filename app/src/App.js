@@ -57,6 +57,8 @@ class App extends Component {
             <Route exact path = '/loginerror' component = {LoginError} />    
         </Switch>
 
+        
+
         <Footer />
       </div>
     );

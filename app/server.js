@@ -53,18 +53,17 @@ passport.use(new FacebookStrategy({
     clientSecret: FACEBOOK_APP_SECRET,
     callbackURL: "http://localhost:3000/auth/facebook/callback"
   }, function(accessToken, refreshToken, profile, done) {
-    console.log(profile);
+    //console.log(profile);
   		// process.nextTick is a nodejs function that waits for data to come back before continuing
   		process.nextTick(function(){
   			FacebookUser.findOne({'facebook.id': profile.id}, function(err, user) {
   				if (err) {
   					console.log('error');
   					return done(err);
-  					console.log("user exists in database");
   				}
 
   				if (user) {
-  					console.log('found user');
+  					console.log('found user: ' + user);
   					return done(null, user);
   				}else {
   					console.log('making user');
@@ -73,13 +72,12 @@ passport.use(new FacebookStrategy({
   					newFacebookUser.facebook.token = accessToken;
   					newFacebookUser.facebook.name = profile.displayName;
   					// newFacebookUser.facebook.email = profile.emails.value;
-            console.log(newFacebookUser);
   					newFacebookUser.save(function(err, doc){
   						if (err) {
   							throw err;
   						}else {
   							return done(null, doc);
-  							console.log("new facebook user saved to db");
+  							console.log("new facebook user saved to db: "+ doc);
   						}
   					});
   				}
@@ -106,7 +104,11 @@ app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' })
 // authentication process by attempting to obtain an access token.  If
 // access was granted, the user will be logged in.  Otherwise,
 // authentication has failed.
-app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRedirect: 'http://localhost:3001/', failureRedirect: 'http://localhost:3001/loginerror' }));
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', {
+      successRedirect: 'http://localhost:3001/',
+      failureRedirect: 'http://localhost:3001/loginerror'
+    }));
 
 app.get('/test', function(req, res) {
 	console.log('clicked logo');
@@ -116,13 +118,39 @@ app.get('/test', function(req, res) {
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
+  console.log("serializeUser id: " + user.id);
 });
 
 passport.deserializeUser(function(id, done) {
   FacebookUser.findById(id, function(err, user) {
     done(err, user);
+    console.log("user deserialized: " + user);
   });
 });
+
+// app.get("/logout", function(req, res){
+//   req.session.destroy((err) => {
+//     if(err) {
+//       console.log(err);
+//     }else {
+//       console.log('log out successful');
+//     }
+
+//     req.logout()
+
+//     res.redirect("http://localhost:3001/")
+//   })
+  
+// });
+
+// function authenticationMiddleware () {  
+//   return (req, res, next) => {
+//     console.log(`req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
+
+//       if (req.isAuthenticated()) return next();
+//       // res.redirect('/');
+//   }
+// }
 
 // require('./routes/api-routes.js')(app);
 

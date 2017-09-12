@@ -19,6 +19,7 @@ class UpdatedNavBar extends React.Component {
 					<ul id = "navbar-right" className="right">
 						<li className = "active"><Link to="/calendar">Calendar</Link></li>
 						<li className="active"><a href="http://localhost:3000/auth/facebook">Login with Facebook</a></li>
+					{/*<li className="active"><a href="http://localhost:3000/logout">Logout</a></li>*/}
 					</ul>
 				</div>
 			</nav>

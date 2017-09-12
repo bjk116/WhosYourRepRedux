@@ -7,10 +7,6 @@ class DonorChart extends React.Component {
 		console.log("search data function");
 		var chartData = this.props.donorsData;		
 		console.log(chartData);
-		
-		for (var i = 0; i < chartData.length; i++) {
-			console.log("Hello world");
-		}
 
 	}
 
@@ -29,7 +25,7 @@ class DonorChart extends React.Component {
 		// }
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		this.setChartData();
 	}
 
