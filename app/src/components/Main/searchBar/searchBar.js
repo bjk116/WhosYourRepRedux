@@ -1,15 +1,11 @@
-import React, {Component} from "react";
-import AutoComplete from "material-ui/AutoComplete";
-import getMuiTheme from "material-ui/styles/getMuiTheme";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import JSONP from "jsonp";
+import React from "react";
 import Source from "./dataSource";
 import Autosuggest from "react-autosuggest";
-import Style from "./style.css";
+import Styles from "./style.css";
 
 var AutosuggestHighlightMatch = require("autosuggest-highlight/match");
 var AutosuggestHighlightParse = require("autosuggest-highlight/parse");
-var style = Style;
+var style = Styles;
 var data = Source;
 
 function escapeRegexCharacters(str) {
@@ -91,7 +87,7 @@ class SearchBar extends React.Component {
 
     return (
       <Autosuggest 
-        style={style}
+        theme={style}
         suggestions={suggestions}
         onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
         onSuggestionsClearRequested={this.onSuggestionsClearRequested}

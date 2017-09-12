@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import $ from 'jquery';
+import DatePicker from 'material-ui/DatePicker';
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import getMuiTheme from "material-ui/styles/getMuiTheme";
 
 var divStyle = {
   background: "#eee",
@@ -68,7 +71,9 @@ class Form extends React.Component {
   <div class="input-field col s6">
       <label class="active">
           End Date:
-          <input name="end" type="text" class="datepicker" value={this.state.end} onChange={this.handleChange} />
+        <MuiThemeProvider muiTheme={getMuiTheme()}>
+          <DatePicker container="inline" mode="landscape" />
+          </MuiThemeProvider>
       </label>
     </div>   
 
