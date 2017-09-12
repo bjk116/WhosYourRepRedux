@@ -107,7 +107,7 @@ class App extends Component {
       currentComponent: "/main",
       componentParameters: 'NJ',
       loggedInStatus : false,
-      calendar: 'NJ',
+      validSearch: false,
       value: "",
       suggestions: []
     };
@@ -138,10 +138,14 @@ class App extends Component {
   onChange = (event, { newValue, method }) => {
     var newCurrentComponent = this.searchParser(newValue);
     console.log('newCurrentComponent', newCurrentComponent);
+
+    //Last line - if our new currentComponent based on the search is a state or politician
+    //it is a valid search, and so then we should render, otherwise, we should now
     this.setState({
       value: newValue,
       currentComponent: newCurrentComponent,
-      componentParameters: newValue
+      componentParameters: newValue,
+      validSearch: (newCurrentComponent == '/state' || newCurrentComponent == '/politician') ? true : false
     });
 
   };
@@ -179,14 +183,11 @@ class App extends Component {
           renderSuggestion={renderSuggestion}
           inputProps={inputProps}
         />
-        <button onClick={this.search}>Search</button>
 
-        <Switch>
+        {this.state.validSearch &&
           <Route exact path='/calendar' component = {CalendarWrapper} />
-          <Route exact path = '/state' component = {StatePageWrapper} />
-          <Route exact path = '/loginerror' component = {LoginError} />    
-        </Switch>
-
+        }
+          
         <Footer />
       </div>
     );
