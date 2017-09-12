@@ -116,7 +116,7 @@ class TopStateDonors extends React.Component {
 						// bar: { groupWidth: '25%'}
 					}}
 					graph_id="BarChart"
-					width="80%"
+					width="100%"
 					height="600px"
 					legend_toggle
 				/>
@@ -131,7 +131,7 @@ class TopStateDonors extends React.Component {
 						]}
 					options={{
 							title: "Number of Republican and Democrat Representatives for state",
-							pieHole: 0.3
+							is3D: true
 						}}
 
 				/>
