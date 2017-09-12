@@ -10,29 +10,36 @@ var PoliticianSchema = new Schema({
 	cid: {
 		type: String
 	},
-	firstName: {
+	proPublicaId: {
 		type: String
 	},
-	lastName: {
+	position: {
+		type: String
+	},
+	name:{
 		type: String
 	},
 	party: {
 		type: String
 	},
 	donors: {
-		type: String
+		type: [{}]
 	},
 	twitterHandle: {
 		type: String
 	},
-	relectionDate: {
+	endOfTerm: {
 		type: Date
 	},
-	proposedBills: {
-		type: String
+	roles: {
+		type: [String]
+	},
+	events: {
+		type: [Schema.Types.ObjectId],
+		ref: "ApiEvents"
 	}
 });
 
-var Politician = mongoose.model('Poltiician', PoliticianSchema);
+var Politician = mongoose.model('Politician', PoliticianSchema);
 
 module.exports = Politician;

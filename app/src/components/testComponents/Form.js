@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import $ from 'jquery';
 import DatePicker from 'material-ui/DatePicker';
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
@@ -11,7 +10,10 @@ var divStyle = {
   width: "50%" 
 };
 
-
+var selectStyle = {
+  width: "80%",
+  margin: "50px"
+};
 
 class Form extends React.Component {
   constructor(props) {
@@ -56,24 +58,41 @@ class Form extends React.Component {
     
     <div class="input-field col s6">
       <label class="active">
-          State:
+          Address:
           <input name="state" type="text" value={this.state.state} onChange={this.handleChange} />
       </label>
     </div>
 
     <div class="input-field col s6">
+      <div style={selectStyle}>
+        <select>
+          <option value="" disabled selected>Choose your option</option>
+          
+          <option value="2">Option 2</option>
+          
+        </select>
+        <label>
+            State:
+        </label>
+      </div>
+    </div>
+
+    <div class="input-field col s6">
       <label class="active">
-          Start Date:
-          <input name="start" type="text" class="datepicker" value={this.state.start} onChange={this.handleChange} />
+          Date:
+          <MuiThemeProvider muiTheme={getMuiTheme()}>
+            <DatePicker hintText="Enter Date" />
+          </MuiThemeProvider>
       </label>
     </div>
 
   <div class="input-field col s6">
       <label class="active">
           End Date:
-        <MuiThemeProvider muiTheme={getMuiTheme()}>
-          <DatePicker container="inline" mode="landscape" />
+           <MuiThemeProvider muiTheme={getMuiTheme()}>
+            <DatePicker hintText="Enter Date" />
           </MuiThemeProvider>
+          <input name="end" type="text" class="datepicker" value={this.state.end} onChange={this.handleChange} />
       </label>
     </div>   
 

@@ -18,7 +18,7 @@ class TopStateDonors extends React.Component {
 		  	url: queryURL,
 		    responseType: 'json'
 		}).then((resp) => {
-			console.log(resp);
+			// console.log(resp);
 			for (var i = 0; i < resp.data.response.legislator.length; i++) {
 				polsCID.push(resp.data.response.legislator[i]['@attributes'].cid);
 			}
@@ -33,13 +33,29 @@ class TopStateDonors extends React.Component {
 					responseType: 'json'
 				}).then((resp)=> {
 					// console.log(resp);
-					polsDonors.push({
+					var data = {
 						politician: resp.data.response.industries['@attributes'].cand_name,
 						industries: resp.data.response.industries.industry
-					});
+					};
+					// console.log(data);
+					polsDonors.push(data);
+					// console.log(polsDonors);
+					// this.setState({
+					// 	politiciansDonors: polsDonors
+					// });
+
+					//console.log(this.state.politiciansDonors);
+					// console.log(polsDonors);
 				});
 			}
+
+			this.setState({
+				politiciansDonors: polsDonors
+			});			
+
 		});
+
+
 
 		// var queryURLProPublica = 'https://api.propublica.org/congress/v1/members/house/NJ/5/current.json';
 		// axios({
@@ -50,10 +66,8 @@ class TopStateDonors extends React.Component {
 		// }).then((resp)=>{
 		// 	console.log(resp);
 		// });
-
-		this.setState({
-			politiciansDonors: polsDonors
-		});
+		//console.log(polsDonors);
+		
 
 		console.log("getTopStateDonors method finished");
 	}

@@ -5,6 +5,9 @@
   <title>Who's Your Rep?</title>
 
   <!-- Latest compiled and minified CSS & JS -->
+  <link rel="icon" href="congress.png">
+  <link href="https://fonts.googleapis.com/css?family=Alegreya+SC" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Volkhov" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="./styles/style.css">
 
@@ -17,11 +20,36 @@
   <!-- Main App-->
   </div>
 
+  
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-          
+  <script>
+    $(document).ready(function() {
+      $('select').material_select();
+      $('#login-modal').modal();
+    });
+
+    // below code is from: https://stackoverflow.com/questions/7131909/facebook-callback-appends-to-return-url
+    // it is to fix the appending of #_=_ that occurs when facebook callback returns user to the "/" route
+    if (window.location.hash && window.location.hash == '#_=_') {
+        if (window.history && history.pushState) {
+            window.history.pushState("", document.title, window.location.pathname);
+        } else {
+            // Prevent scrolling by storing the page's current scroll offset
+            var scroll = {
+                top: document.body.scrollTop,
+                left: document.body.scrollLeft
+            };
+            window.location.hash = '';
+            // Restore the scroll offset, should be flicker free
+            document.body.scrollTop = scroll.top;
+            document.body.scrollLeft = scroll.left;
+        }
+    }
+  </script>
 
 </body>
 </html>
