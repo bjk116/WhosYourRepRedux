@@ -102,24 +102,48 @@ class StatePageWrapper extends Component {
 class App extends Component {
   constructor(){
     super();
+
     this.state = {
-      currentComponent : "/state",
+      currentComponent: "/main",
+      componentParameters: 'NJ',
       loggedInStatus : false,
       calendar: 'NJ',
       value: "",
       suggestions: []
-    };    
+    };
+
+    this.searchValue = this.searchParser.bind(this);
+
   }
 
   //this function determines whether the search is a state or person, and then routes appropriately
-  searchParser(input){
-
+  searchParser(input){  
+    console.log('running search parser');
+    for(var i = 0; i < data.length; i++) {
+      //if the search parameter is in our data source
+      if(input.toLowerCase() === data[i].toLowerCase()) {
+        console.log('found input');
+        if (i<55) {
+          console.log('its a state');
+          return '/state';
+        } else {
+          console.log('its a person');
+          return '/politician';
+        }
+      }
+    };
+   return '/main';
   }
 
   onChange = (event, { newValue, method }) => {
+    var newCurrentComponent = this.searchParser(newValue);
+    console.log('newCurrentComponent', newCurrentComponent);
     this.setState({
-      value: newValue
+      value: newValue,
+      currentComponent: newCurrentComponent,
+      componentParameters: newValue
     });
+
   };
 
   onSuggestionsFetchRequested = ({ value }) => {
@@ -135,37 +159,37 @@ class App extends Component {
   };
 
   render(){
-              {
-                const { value, suggestions } = this.state;
-                const inputProps = {
-                placeholder: "Search",
-                value,
-                onChange: this.onChange
-              };
-      return (
-        <div id="App">
-          <UpdatedNavBar />
+    {
+      const { value, suggestions } = this.state;
+      const inputProps = {
+      placeholder: "Search",
+      value,
+      onChange: this.onChange
+    };
+    return (
+      <div id="App">
+        <UpdatedNavBar />
 
-          <Autosuggest 
-            style={style}
-            suggestions={suggestions}
-            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-            getSuggestionValue={getSuggestionValue}
-            renderSuggestion={renderSuggestion}
-            inputProps={inputProps}
-          />
-          {/*<Calendar searchBy={'state'} searchCriteria={'NJ'}/>*/}
+        <Autosuggest 
+          style={style}
+          suggestions={suggestions}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+          getSuggestionValue={getSuggestionValue}
+          renderSuggestion={renderSuggestion}
+          inputProps={inputProps}
+        />
+        <button onClick={this.search}>Search</button>
 
-          <Switch>
-            <Route exact path='/calendar' component = {CalendarWrapper} />
-            <Route exact path = '/state' component = {StatePageWrapper} />
-            <Route exact path = '/loginerror' component = {LoginError} />    
-          </Switch>
+        <Switch>
+          <Route exact path='/calendar' component = {CalendarWrapper} />
+          <Route exact path = '/state' component = {StatePageWrapper} />
+          <Route exact path = '/loginerror' component = {LoginError} />    
+        </Switch>
 
-          <Footer />
-        </div>
-      );
+        <Footer />
+      </div>
+    );
     }
   }
 }
