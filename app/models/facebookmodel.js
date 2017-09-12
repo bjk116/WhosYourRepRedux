@@ -5,7 +5,7 @@ var FacebookUserSchema = new Schema({
 	facebook: {
 		id: String,
 		token: String,
-		email: String,
+		// email: String,
 		name: String
 	}
 });

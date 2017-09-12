@@ -33,8 +33,7 @@ var FacebookUser = require('./models/facebookmodel');
 var FACEBOOK_APP_ID = '125732914829092';
 var FACEBOOK_APP_SECRET = 'fbb5018e2f3260adb5c32a026c313ee9';
 
-//Initialisze express
-var app = express();
+
 
 //db name = whosyourrep
 mongoose.connect('mongodb://localhost/whosyourrep');
@@ -52,8 +51,9 @@ db.once('open', function() {
 passport.use(new FacebookStrategy({
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:3001/auth/facebook/callback"
+    callbackURL: "http://localhost:3000/auth/facebook/callback"
   }, function(accessToken, refreshToken, profile, done) {
+    console.log(profile);
   		// process.nextTick is a nodejs function that waits for data to come back before continuing
   		process.nextTick(function(){
   			FacebookUser.findOne({'facebook.id': profile.id}, function(err, user) {
@@ -71,9 +71,9 @@ passport.use(new FacebookStrategy({
   					var newFacebookUser = new FacebookUser();
   					newFacebookUser.facebook.id = profile.id;
   					newFacebookUser.facebook.token = accessToken;
-  					newFacebookUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
-  					newFacebookUser.facebook.email = profile.emails[0].value;
-
+  					newFacebookUser.facebook.name = profile.displayName;
+  					// newFacebookUser.facebook.email = profile.emails.value;
+            console.log(newFacebookUser);
   					newFacebookUser.save(function(err, doc){
   						if (err) {
   							throw err;
@@ -95,6 +95,8 @@ app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveU
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+
 // Redirect the user to Facebook for authentication.  When complete,
 // Facebook will redirect the user back to the application at
 //     /auth/facebook/callback
@@ -104,20 +106,28 @@ app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' })
 // authentication process by attempting to obtain an access token.  If
 // access was granted, the user will be logged in.  Otherwise,
 // authentication has failed.
-app.get('/auth/facebook/callback',
-
-  passport.authenticate('facebook', { successRedirect: '/state',
-                                      failureRedirect: '/calendar' }));
+app.get('/auth/facebook/callback', passport.authenticate('facebook', { successRedirect: 'http://localhost:3001/', failureRedirect: 'http://localhost:3001/loginerror' }));
 
 app.get('/test', function(req, res) {
 	console.log('clicked logo');
 });
 
 
-require('./routes/api-routes.js')(app);
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  FacebookUser.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
+// require('./routes/api-routes.js')(app);
 
 app.listen(3000, function() {
 	console.log('running on 3000');
 });
 
-require('./scraper/scraper')();
+// require('./scraper/scraper')();
