@@ -12,6 +12,7 @@ import UpdatedNavBar from './components/Navbar/UpdatedNavBar';
 import LoginError from './components/testComponents/LoginError';
 import axios from 'axios';
 import themeable from 'react-themeable';
+import Hero from "./components/hero/Hero";
 
 //React Router
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -200,9 +201,10 @@ class App extends Component {
           <div>
             <Route path="/state/:stateParam?" component={StatePage}/>
             <Route path="/calendar/:stateParam?" component={CalendarWrapper}/>
+            <Route exact path = "/" component={Hero} />
           </div>
         </Router>
-
+      
         <Footer />
         
       </div>

@@ -17,7 +17,7 @@ class UpdatedNavBar extends React.Component {
 					<ul id="nav-mobile" className="hide-on-small-only" className="left" >
 						<li><img src="logo2.png" id="logo-img" className="hide-on-small-only"/></li>
 						<li className="active" className ="hide-on-small-only">RepGenius</li>
-						<li id="nav-title">Who's Your Rep?</li>
+						<li id="nav-title" class="hide-on-small-only">Who's Your Rep?</li>
 					</ul>
 
 					<ul id="nav-mobile" className="hide-on-small-only" className="right">
