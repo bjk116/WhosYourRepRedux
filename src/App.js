@@ -17,6 +17,7 @@ import politicianToCid from './helper/politicianToCID';
 //initials converter
 import stateHelper from './components/Main/searchBar/helper';
 
+
 //React Router
 import { Route, Redirect, Switch } from "react-router-dom";
 
@@ -216,6 +217,7 @@ class App extends Component {
               />
             </Switch>
           </div>
+
 
         <Footer />
         

@@ -61,7 +61,7 @@ db.once('open', function() {
 passport.use(new FacebookStrategy({
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:3000/auth/facebook/callback"
+    callbackURL: "/auth/facebook/callback"
   }, function(accessToken, refreshToken, profile, done) {
     //console.log(profile);
   		// process.nextTick is a nodejs function that waits for data to come back before continuing
@@ -116,8 +116,8 @@ app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email' })
 // authentication has failed.
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', {
-      successRedirect: 'http://localhost:3001/',
-      failureRedirect: 'http://localhost:3001/loginerror'
+      successRedirect: '/loginerror',
+      failureRedirect: '/'
     }));
 
 app.get('/test', function(req, res) {

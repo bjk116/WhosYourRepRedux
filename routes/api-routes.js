@@ -23,7 +23,7 @@ module.exports = function(app) {
 				tpolitician.cid = rep.cid
 				fromPoliToCid.push(tpolitician);
 			});
-			
+
 			res.json(fromPoliToCid);
 		});
 	});
@@ -118,7 +118,7 @@ module.exports = function(app) {
 		});
 	});
 
-	app.get('/user', function(req, res) {
+	app.get('/user/auth', function(req, res) {
 		if(req.user) {
 			return res.status(200).json({
 				user: req.user,
