@@ -7,6 +7,7 @@ class UpdatedNavBar extends React.Component {
 		return(
 			<nav>
 				<div className="nav-wrapper">
+
 					<a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
 					<ul id="nav-mobile" className="hide-on-small-only" className="left" >
 						<li className ="hide-on-small-only"><Link to="logo2.png"><a id="img-link" href="index.html"><img src="logo2.png" id="logo-img"/></a></Link></li>
@@ -15,7 +16,7 @@ class UpdatedNavBar extends React.Component {
 					<ul className="left" id="nav-title-class">
 						<li id="nav-title">Who's Your Rep?</li>
 					</ul>
-					</ul>
+
 					<ul id="nav-mobile" className="hide-on-small-only" className="right">
 						<li className ="active" className ="hide-on-small-only"><Link to="/calendar">Calendar</Link></li>
 						<li className ="active" className ="hide-on-small-only"><Link to="/state">State</Link></li>

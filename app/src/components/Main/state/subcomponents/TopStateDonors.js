@@ -5,113 +5,137 @@ import { Chart } from 'react-google-charts';
 
 class TopStateDonors extends React.Component {
 
-	getTopStateDonors(userInputForStateID) {
-		console.log("getTopStateDonors method starts");
-		var opensecetsAPIKey = '2c976051a159c1c4c3961d853d3b4fb4';
+	getPoliticianDonorTotals(userInputForStateID) {
 
-		var queryURL = 'http://www.opensecrets.org/api/?method=getLegislators&id=' + userInputForStateID + '&apikey=' + opensecetsAPIKey + '&output=json';
-
-		var polsCID = [];
-		var polsDonors = [];
-
-		function pushObjToArray(object) {
-			polsDonors.push(object);
-			// console.log(object);
-		}
+		var politiciansDonorSum = [["Politician", "Total"]];
 
 		axios({
-		  	method:'GET',
-		  	url: queryURL,
-		    responseType: 'json'
-		}).then((resp) => {
+			url: "/reps/" + userInputForStateID,
+			method: "GET",
+		}).then((resp)=>{
 			// console.log(resp);
-			for (var i = 0; i < resp.data.response.legislator.length; i++) {
-				polsCID.push(resp.data.response.legislator[i]['@attributes'].cid);
-			}
-			// console.log(polsCID);
-			for (var i = 0; i < polsCID.length; i++) {
+			// console.log(resp.data[0]);
+			// console.log(resp.data[0].name);
+			// console.log(resp.data[0].position);
+			// console.log(resp.data[0].party);
+			for (var i = 0; i < resp.data.length; i++) {
+				var polNamePartyPosition = resp.data[i].position + " " + resp.data[i].name + " (" + resp.data[i].party + ")";
+				// console.log(polNamePartyPosition);
+			
+				var totalIndusContributions = 0;
 
-				var queryURLTwo = 'http://www.opensecrets.org/api/?method=candIndustry&cid='+ polsCID[i] + '&apikey=' + opensecetsAPIKey + '&output=json';
-
-				axios({
-					method: 'GET',
-					url: queryURLTwo,
-					responseType: 'json'
-				}).then((resp)=> {
-					// console.log(resp);
-					var data = {
-						politician: resp.data.response.industries['@attributes'].cand_name,
-						industry1: resp.data.response.industries.industry[0]['@attributes'].industry_name + ": $" + resp.data.response.industries.industry[0]['@attributes'].total,
-						industry2: resp.data.response.industries.industry[1]['@attributes'].industry_name + ": $" + resp.data.response.industries.industry[1]['@attributes'].total,
-						industry3: resp.data.response.industries.industry[2]['@attributes'].industry_name + ": $" + resp.data.response.industries.industry[2]['@attributes'].total,
-						industry4: resp.data.response.industries.industry[3]['@attributes'].industry_name + ": $" + resp.data.response.industries.industry[3]['@attributes'].total,
-						industry5: resp.data.response.industries.industry[4]['@attributes'].industry_name + ": $" + resp.data.response.industries.industry[4]['@attributes'].total,
-						industry6: resp.data.response.industries.industry[5]['@attributes'].industry_name + ": $" + resp.data.response.industries.industry[5]['@attributes'].total,
-						industry7: resp.data.response.industries.industry[6]['@attributes'].industry_name + ": $" + resp.data.response.industries.industry[6]['@attributes'].total,
-						industry8: resp.data.response.industries.industry[7]['@attributes'].industry_name + ": $" + resp.data.response.industries.industry[7]['@attributes'].total,
-						industry9: resp.data.response.industries.industry[8]['@attributes'].industry_name + ": $" + resp.data.response.industries.industry[8]['@attributes'].total,
-						industry10: resp.data.response.industries.industry[9]['@attributes'].industry_name + ": $" + resp.data.response.industries.industry[9]['@attributes'].total,
-					};
-					pushObjToArray(data);
-	
-				});
+				for (var j = 0; j < resp.data[i].donors.length; j++) {
+					totalIndusContributions += parseInt(resp.data[i].donors[j].total);
+					
+				}
+				politiciansDonorSum.push([polNamePartyPosition, totalIndusContributions]);
 			}
+			// console.log(politiciansDonorSum);
+			this.setState({
+				politiciansDonors: politiciansDonorSum
+			});
 
 		});
 
-		this.setState({
-			politiciansDonors: polsDonors
-		});
 	}
 
-		// var queryURLProPublica = 'https://api.propublica.org/congress/v1/members/house/NJ/5/current.json';
-		// axios({
-		// 	url: queryURLProPublica,
-		// 	method: "GET",
-		// 	dataType: 'json',
-		// 	headers: {'X-API-Key': '45Jqi2YUkG5u36euvspZI9yLR0dAOrz545XRSwW1'}
-		// }).then((resp)=>{
-		// 	console.log(resp);
-		// });
+
+
+	getNumofRepsAndDems(userInputForStateID) {
+
+		var demReps = 0;
+		var repReps = 0;
+
+		var queryURLProPublica = "https://api.propublica.org/congress/v1/members/house/" + userInputForStateID+ "/current.json";
+		axios({
+			url: queryURLProPublica,
+			method: "GET",
+			dataType: 'json',
+			headers: {'X-API-Key': '45Jqi2YUkG5u36euvspZI9yLR0dAOrz545XRSwW1'}
+		}).then((resp)=>{
+			var stateResults = resp.data.results;
+			// console.log(resp);
+			// console.log(stateResults[0]);
+
+			for (var i = 0; i < stateResults.length; i++) {
+				if (stateResults[i].party === "D") {
+					demReps++;
+				}else if (stateResults[i].party === "R") {
+					repReps++;
+				}
+			}
+		// console.log("D: " + demReps);
+		// console.log("R: " + repReps);
+
+			this.setState({
+				stateHouseReps: repReps,
+				stateHouseDems: demReps
+			});
+
+		});
+
+
+	}
 
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			politiciansDonors: undefined
+			politiciansDonors: undefined,
+			stateHouseReps: undefined,
+			stateHouseDems: undefined
 		}
 	}
 
-	componentDidMount() {
-		console.log("component to be mounted with manually entered props of: " + this.props.stateID);
+	componentWillMount() {
+		console.log("component mounted with manually entered props of: " + this.props.stateID);
 		var stateID = this.props.stateID;
-		this.getTopStateDonors(stateID);
+		this.getPoliticianDonorTotals(stateID);
+		this.getNumofRepsAndDems(stateID);
+
 	}
 
 	render() {
 		console.log(this.state.politiciansDonors);
+		// console.log(this.props.stateID + " Democrats: " + this.state.stateHouseDems);
+		// console.log(this.props.stateID + " Republicans: " + this.state.stateHouseReps);
+
 		return (
-			<div>
+			<div className = "row">
 				<h1>State Info for {this.props.stateID}</h1>
+				<div className = "divider"></div>
+				<div className = "col s8 m8 lg8">
 				{/*<DonorChart donorsData={this.state.politiciansDonors} />*/}
 				<Chart
 					chartType="BarChart"
-					data={[
-						["Politcian", "Industry 1", "Industry 2"],
-						["Cory Booker", 399, 955],
-						["Norcross", 343, 342]
-						]}
+					data={this.state.politiciansDonors}
 					options={{
-						title: "Donors for Each of the state's politicans",
+						title: "Total industry contributions for each of the state's national-level politicians",
 						legend: { position: 'top', maxLines: 4 },
-						isStacked: true,
-						bar: { groupWidth: '25%'}
+						// isStacked: true,
+						// bar: { groupWidth: '25%'}
 					}}
 					graph_id="BarChart"
 					width="100%"
-					height="400px"
+					height="600px"
 					legend_toggle
 				/>
+				</div>
+				<div className = "col s4 m4 lg4">
+				<Chart 
+					chartType="PieChart"
+					data={[
+							["Party", "Qty"],
+							["Democrats", this.state.stateHouseDems],
+							["Republicans", this.state.stateHouseReps]
+						]}
+					options={{
+							title: "Number of Republican and Democrat Representatives for state",
+							is3D: true
+						}}
+
+				/>
+				</div>
 			</div>
 		);
 	}

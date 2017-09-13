@@ -3,7 +3,6 @@ import DatePicker from 'material-ui/DatePicker';
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 
-
 var divStyle = {
   background: "#eee",
   padding: "20px",

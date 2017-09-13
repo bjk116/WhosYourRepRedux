@@ -8,7 +8,6 @@ import Calendar from "./components/Main/calendar/Calendar";
 import PieChart from "./components/Main/chart/chart";
 import Politician from "./components/Main/politician/Politician";
 import StatePage from "./components/Main/state/StatePage";
-
 import Form from "./components/Main/Form/Form";
 import Trending from "./components/Main/Trending/Trending";
 import {Switch, Route} from "react-router-dom";
@@ -20,15 +19,15 @@ import AutoComplete from "material-ui/AutoComplete";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Source from "./components/Main/searchBar/dataSource";
-import Style from "./components/Main/searchBar/style.css";
 import JSONP from "jsonp";
 import Autosuggest from "react-autosuggest";
+import SearchStyle from "./styles/searchStyle.css";
 
 //SearchBar Functions
 var AutosuggestHighlightMatch = require("autosuggest-highlight/match");
 var AutosuggestHighlightParse = require("autosuggest-highlight/parse");
-var style = Style;
 var data = Source;
+var searchStyle = SearchStyle;
 
 function escapeRegexCharacters(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -97,7 +96,6 @@ class StatePageWrapper extends Component {
   }
 }
 
-
 class App extends Component {
   constructor(){
     super();
@@ -144,6 +142,7 @@ class App extends Component {
       value: newValue,
       currentComponent: newCurrentComponent,
       componentParameters: newValue,
+      loggedInState: false,
       validSearch: (newCurrentComponent == '/state' || newCurrentComponent == '/politician') ? true : false
     });
 
@@ -172,10 +171,13 @@ class App extends Component {
     return (
       <div id="App">
         <UpdatedNavBar />
+<<<<<<< HEAD
         
       
+=======
+>>>>>>> 84f330ababcf5ca39a64a458de73ff8798455e4c
         <Autosuggest 
-          style={style}
+          theme = {this.searchStyle}
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
@@ -185,18 +187,8 @@ class App extends Component {
         />
        
 
-        {this.state.validSearch &&
-          <Route exact path='/calendar' component = {CalendarWrapper} />
-        }
-
-        {!this.state.validSearch &&
-        <Switch>
-          <Route exact path='/calendar' component = {CalendarWrapper} />
-          <Route exact path = '/state' component = {StatePageWrapper} />
-          <Route exact path = '/loginerror' component = {LoginError} />    
-        </Switch>
-        }  
-
+        <Calendar searchFor={"NJ"}/>
+  
         <Footer />
         
       </div>
@@ -205,8 +197,4 @@ class App extends Component {
   }
 }
 
-
-
 export default App;
-
-
