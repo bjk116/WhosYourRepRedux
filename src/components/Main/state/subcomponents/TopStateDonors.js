@@ -85,6 +85,8 @@ class TopStateDonors extends React.Component {
 			stateHouseReps: undefined,
 			stateHouseDems: undefined
 		}
+
+		this.getNumofRepsAndDems = this.getNumofRepsAndDems.bind(this);
 	}
 
 	componentWillMount() {

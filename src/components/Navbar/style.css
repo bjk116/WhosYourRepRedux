@@ -1,31 +1,15 @@
 li{
 	font-family: 'Alegreya SC', serif;
 	font-size: 20px;
-	text-align:inline-block;
+	text-align: inline-block;
 }
 
 #nav-title{
-	font-size:40px;
-	position:relative;
+	font-size: 40px;
+	position: relative;
 	left: 50%;
 }
 
-#nav-title-class{
-	font-size:40px;
-	position:relative;
-	left:200px;
-	padding-right:100px;
-}
-
 #logo-img{
-	width:30%;
-}
-
-#img-link{
-	padding:0;
-}
-
-.active {
-	font-size: 20px;
-	
+	width: 30%;
 }

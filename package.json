@@ -16,6 +16,7 @@
     "jquery": "^3.2.1",
     "jsonp": "^0.2.1",
     "material-ui": "^0.19.1",
+    "materialize-css": "^0.100.2",
     "moment": "^2.18.1",
     "mongoose": "^4.11.10",
     "morgan": "^1.8.2",
@@ -29,10 +30,12 @@
     "react-dom": "^15.6.1",
     "react-google-charts": "^1.5.5",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.12"
+    "react-scripts": "1.0.12",
+    "react-themeable": "^1.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start-dev": "react-scripts start",
+    "start": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

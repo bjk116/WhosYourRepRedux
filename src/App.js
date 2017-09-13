@@ -11,7 +11,8 @@ import Trending from "./components/Main/Trending/Trending";
 import {Switch, Route} from "react-router-dom";
 import UpdatedNavBar from './components/Navbar/UpdatedNavBar';
 import LoginError from './components/testComponents/LoginError';
-import axios from 'axios';
+
+import themeable from 'react-themeable';
 
 //Searchbar stuff
 import Source from "./components/Main/searchBar/dataSource";
@@ -22,7 +23,9 @@ import SearchStyle from "./styles/searchStyle.css";
 var AutosuggestHighlightMatch = require("autosuggest-highlight/match");
 var AutosuggestHighlightParse = require("autosuggest-highlight/parse");
 var data = Source;
-var searchStyle = SearchStyle;
+var theme = {
+  foo: 'Autosuggest__foo',
+};
 
 function escapeRegexCharacters(str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -177,7 +180,7 @@ class App extends Component {
         <UpdatedNavBar />
 
         <Autosuggest 
-          className = "searchBar"
+          theme={SearchStyle}
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}

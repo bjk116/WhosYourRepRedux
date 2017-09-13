@@ -44,7 +44,7 @@ var databaseURI = 'mongodb://localhost/whosyourrep';
 var db = mongoose.connection;
 
 if (process.env.MONGODB_URI) {
-  mongoose.connect(process.env.MONGODB_URI)
+  mongoose.connect("mongodb://heroku_mbck8jnv:vb0hnmsd108hojue029gnndquf@ds135514.mlab.com:35514/heroku_mbck8jnv");
 }else {
   mongoose.connect(databaseURI);
 }
