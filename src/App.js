@@ -8,11 +8,13 @@ import Politician from "./components/Main/politician/Politician";
 import StatePage from "./components/Main/state/StatePage";
 import Form from "./components/Main/Form/Form";
 import Trending from "./components/Main/Trending/Trending";
-import {Switch, Route} from "react-router-dom";
 import UpdatedNavBar from './components/Navbar/UpdatedNavBar';
 import LoginError from './components/testComponents/LoginError';
-
+import axios from 'axios';
 import themeable from 'react-themeable';
+
+//React Router
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 //Searchbar stuff
 import Source from "./components/Main/searchBar/dataSource";
@@ -81,7 +83,7 @@ class CalendarWrapper extends Component{
   //we keep searchCriteria in state
   render() {
     return(
-        <Calendar searchBy={"state"} searchCriteria={this.state.searchCriteria}/>
+        <Calendar searchCriteria={this.state.searchCriteria}/>
     );
   }
 }
@@ -98,9 +100,11 @@ class App extends Component {
   constructor(){
     super();
 
+    //change componentParameter to currentState
     this.state = {
       currentComponent: "/main",
       componentParameters: 'NJ',
+      currentState: 'NJ',
       loggedInStatus : false,
       validSearch: false,
       value: "",
@@ -120,6 +124,9 @@ class App extends Component {
         console.log('found input');
         if (i<55) {
           console.log('its a state');
+          //find what initials it is
+          //set the currentState
+
           return '/state';
         } else {
           console.log('its a person');
@@ -177,7 +184,7 @@ class App extends Component {
     };
     return (
       <div id="App">
-        <UpdatedNavBar />
+        <UpdatedNavBar currentState={this.state.currentState}/>
 
         <Autosuggest 
           theme={SearchStyle}
@@ -188,20 +195,13 @@ class App extends Component {
           renderSuggestion={renderSuggestion}
           inputProps={inputProps}
         />
-       
 
-
-        {this.state.validSearch &&
-          <Route exact path='/calendar' component = {CalendarWrapper} />
-        }
-
-        {!this.state.validSearch &&
-          <Switch>
-            <Route exact path='/calendar' component = {CalendarWrapper} />
-            <Route exact path = '/state' component = {StatePageWrapper} />
-            <Route exact path = '/loginerror' component = {LoginError} />    
-          </Switch>
-        }  
+        <Router>
+          <div>
+            <Route path="/state/:stateParam?" component={StatePage}/>
+            <Route path="/calendar/:stateParam?" component={CalendarWrapper}/>
+          </div>
+        </Router>
 
         <Footer />
         
