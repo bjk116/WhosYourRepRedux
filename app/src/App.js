@@ -171,11 +171,7 @@ class App extends Component {
     return (
       <div id="App">
         <UpdatedNavBar />
-<<<<<<< HEAD
-        
-      
-=======
->>>>>>> 84f330ababcf5ca39a64a458de73ff8798455e4c
+
         <Autosuggest 
           theme = {this.searchStyle}
           suggestions={suggestions}

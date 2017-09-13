@@ -12,7 +12,7 @@ class UpdatedNavBar extends React.Component {
 					<ul id="nav-mobile" className="hide-on-small-only" className="left" >
 						<li className ="hide-on-small-only"><Link to="logo2.png"><a id="img-link" href="index.html"><img src="logo2.png" id="logo-img"/></a></Link></li>
 						<li className="active" className ="hide-on-small-only"><Link to="/">RepGenius</Link></li>
-						
+					</ul>
 					<ul className="left" id="nav-title-class">
 						<li id="nav-title">Who's Your Rep?</li>
 					</ul>
