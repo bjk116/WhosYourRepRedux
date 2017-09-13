@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import NavBar from "./components/Navbar/navBar";
 import Footer from "./components/Footer/Footer";
 import Main from "./components/Main/Main";
 import Calendar from "./components/Main/calendar/Calendar";
@@ -15,11 +13,7 @@ import UpdatedNavBar from './components/Navbar/UpdatedNavBar';
 import LoginError from './components/testComponents/LoginError';
 
 //Searchbar stuff
-import AutoComplete from "material-ui/AutoComplete";
-import getMuiTheme from "material-ui/styles/getMuiTheme";
-import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import Source from "./components/Main/searchBar/dataSource";
-import JSONP from "jsonp";
 import Autosuggest from "react-autosuggest";
 import SearchStyle from "./styles/searchStyle.css";
 
@@ -142,8 +136,7 @@ class App extends Component {
       value: newValue,
       currentComponent: newCurrentComponent,
       componentParameters: newValue,
-      loggedInState: false,
-      validSearch: (newCurrentComponent == '/state' || newCurrentComponent == '/politician') ? true : false
+      validSearch: (newCurrentComponent === '/state' || newCurrentComponent === '/politician') ? true : false
     });
 
   };
@@ -172,7 +165,7 @@ class App extends Component {
       <div id="App">
         <UpdatedNavBar />
         <Autosuggest 
-          theme = {searchStyle}
+          className = "searchBar"
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
@@ -181,8 +174,17 @@ class App extends Component {
           inputProps={inputProps}
         />
 
-        <Calendar searchFor={"NJ"}/>
-  
+        {this.state.validSearch &&
+          <Route exact path='/calendar' component = {CalendarWrapper} />
+        }
+
+        {!this.state.validSearch &&
+          <Switch>
+            <Route exact path='/calendar' component = {CalendarWrapper} />
+            <Route exact path = '/state' component = {StatePageWrapper} />
+            <Route exact path = '/loginerror' component = {LoginError} />    
+          </Switch>
+        }  
         <Footer />
         
       </div>
