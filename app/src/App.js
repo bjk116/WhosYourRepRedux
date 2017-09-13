@@ -13,6 +13,7 @@ import Trending from "./components/Main/Trending/Trending";
 import {Switch, Route} from "react-router-dom";
 import UpdatedNavBar from './components/Navbar/UpdatedNavBar';
 import LoginError from './components/testComponents/LoginError';
+import axios from 'axios';
 
 //Searchbar stuff
 import AutoComplete from "material-ui/AutoComplete";
@@ -129,7 +130,7 @@ class App extends Component {
         }
       }
     };
-   return '/main';
+   return '/trending';
   }
 
   onChange = (event, { newValue, method }) => {
@@ -159,6 +160,16 @@ class App extends Component {
       suggestions: []
     });
   };
+  
+  checkAuth() {
+    axios({
+      url: '/user',
+      method: 'get'
+    }).then((resp)=>{
+      console.log(resp);
+    });
+  }
+
 
   render(){
     {
@@ -171,6 +182,7 @@ class App extends Component {
     return (
       <div id="App">
         <UpdatedNavBar />
+
         <Autosuggest 
           theme = {this.searchStyle}
           suggestions={suggestions}
@@ -181,8 +193,8 @@ class App extends Component {
           inputProps={inputProps}
         />
 
-        <Calendar searchFor={"NJ"}/>
-  
+        <button onClick={this.checkAuth}>Check Auth</button>
+
         <Footer />
         
       </div>

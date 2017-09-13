@@ -104,4 +104,26 @@ module.exports = function(app) {
 		});
 	});
 
-	};
+	app.get('/trending', function(req, res) {
+		ApiEvents.find({
+
+		})
+		.exec(function(err, response) {
+			console.log(response);
+		});
+	});
+
+	app.get('/user', function(req, res) {
+		if(req.user) {
+			return res.status(200).json({
+				user: req.user,
+				authenticated: true
+			});
+		} else {
+			return res.status(401).json({
+				error: 'User is not authenticated',
+				authenticated: false
+			});
+		}
+	});
+};

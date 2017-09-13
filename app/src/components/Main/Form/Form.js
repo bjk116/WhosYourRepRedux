@@ -26,7 +26,9 @@ class Form extends React.Component {
                     value: '',
                     controlledDate: null,
                     startTime: null,
-                    endTime: null
+                    endTime: null,
+                    state: '',
+                    fruit: ''
                   };
 
     this.handleChange = this.handleChange.bind(this);
@@ -73,6 +75,9 @@ class Form extends React.Component {
     console.log(this.state);
     //Should do basic error checking here
       //Make sure date picked is in the future
+      if(this.state.controlledDate){
+        alert('blah');
+      }
       //Make sure the times make sense, ie start time can't be afterend time
       //make sure all fields are filled out
     //If there are no errors, add to database
@@ -123,14 +128,14 @@ class Form extends React.Component {
         <div class="input-field col s12">
           <div style={selectStyle}>
             <label>
-                State:
+              Pick your favorite La Croix flavor:
+              <select value={this.state.fruit} onChange={this.handleChange}>
+                <option value="grapefruit">Grapefruit</option>
+                <option value="lime">Lime</option>
+                <option value="coconut">Coconut</option>
+                <option value="mango">Mango</option>
+              </select>
             </label>
-            <select value={this.state.state} onChange={this.handleChange}>
-              <option value="" disabled selected>Choose your option</option>
-              {States.map(States=>
-                <option value={States}>{States}</option>
-              )}
-            </select>
           </div>
         </div>
 
@@ -192,3 +197,13 @@ class Form extends React.Component {
 
 export default Form;
 
+/*            <label>
+                State:
+              <select onChange={this.handleChange} value={this.state.state} name="state">
+                <option value="" disabled selected>Choose your option</option>
+                {States.map(States=>
+                  <option value={States}>{States}</option>
+                )}
+              </select>
+            </label>
+            */
