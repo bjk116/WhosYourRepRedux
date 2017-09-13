@@ -7,6 +7,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var request = require('request');
+var path = require('path');
 
 //Set mongoose to use promises
 mongoose.Promise = Promise;
@@ -35,6 +36,7 @@ var FACEBOOK_APP_SECRET = 'fbb5018e2f3260adb5c32a026c313ee9';
 
 var PORT = process.env.PORT || 3000;
 
+app.use(express.static(__dirname + '/build'));
 
 //db name = whosyourrep
 // mongoose.connect('mongodb://localhost/whosyourrep');
@@ -42,7 +44,7 @@ var databaseURI = 'mongodb://localhost/whosyourrep';
 var db = mongoose.connection;
 
 if (process.env.MONGODB_URI) {
-  mongoose.connect(process.env.MONGODB_URI)
+  mongoose.connect("mongodb://heroku_mbck8jnv:vb0hnmsd108hojue029gnndquf@ds135514.mlab.com:35514/heroku_mbck8jnv")
 }else {
   mongoose.connect(databaseURI);
 }
