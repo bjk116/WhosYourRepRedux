@@ -13,6 +13,7 @@ import LoginError from './components/testComponents/LoginError';
 import axios from 'axios';
 import themeable from 'react-themeable';
 import politicianToCid from './helper/politicianToCID';
+import Hero from "./components/hero/Hero";
 
 //initials converter
 import stateHelper from './components/Main/searchBar/helper';
@@ -215,6 +216,7 @@ class App extends Component {
                   />
                 )}
               />
+              <Route exact path = "/" component={Hero} />
             </Switch>
           </div>
 
