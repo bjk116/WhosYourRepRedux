@@ -7,9 +7,10 @@ class UpdatedNavBar extends React.Component {
 		return(
 			<nav>
 				<div className="nav-wrapper">
-					<ul id="nav-mobile" className="left hide-on-med-and-down" className="left" >
-						<li><img src="logo2.png" id="logo-img" /></li>
-						<li className="active"><Link to="/">RepGenius</Link></li>
+					<a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
+					<ul id="nav-mobile" className="hide-on-small-only" className="left" >
+						<li><img src="logo2.png" id="logo-img" className="hide-on-small-only"/></li>
+						<li className="active" className ="hide-on-small-only"><Link to="/">RepGenius</Link></li>
 						<li id="nav-title">Who's Your Rep?</li>
 					</ul>
 
@@ -21,8 +22,11 @@ class UpdatedNavBar extends React.Component {
 					</ul>
 				</div>
 			</nav>
+
+
 		);
 	}
 }
+
 
 export default UpdatedNavBar;
