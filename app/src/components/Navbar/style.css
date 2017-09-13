@@ -10,6 +10,13 @@ li{
 	left: 50%;
 }
 
+#nav-title-class{
+	font-size:40px;
+	position:relative;
+	left:200px;
+	padding-right:100px;
+}
+
 #logo-img{
 	width:30%;
 }

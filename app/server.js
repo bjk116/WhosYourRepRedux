@@ -33,12 +33,19 @@ var FacebookUser = require('./models/facebookmodel');
 var FACEBOOK_APP_ID = '125732914829092';
 var FACEBOOK_APP_SECRET = 'fbb5018e2f3260adb5c32a026c313ee9';
 
-var port = process.env.PORT || 3000;
+var PORT = process.env.PORT || 3000;
 
 
 //db name = whosyourrep
-mongoose.connect('mongodb://localhost/whosyourrep');
+// mongoose.connect('mongodb://localhost/whosyourrep');
+var databaseURI = 'mongodb://localhost/whosyourrep';
 var db = mongoose.connection;
+
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI)
+}else {
+  mongoose.connect(databaseURI);
+}
 
 db.on('error', function(error) {
 	console.log('Mongoose error: ', error);

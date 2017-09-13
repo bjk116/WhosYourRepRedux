@@ -164,6 +164,7 @@ class App extends Component {
     return (
       <div id="App">
         <UpdatedNavBar />
+
         <Autosuggest 
           className = "searchBar"
           suggestions={suggestions}
@@ -173,6 +174,7 @@ class App extends Component {
           renderSuggestion={renderSuggestion}
           inputProps={inputProps}
         />
+       
 
         {this.state.validSearch &&
           <Route exact path='/calendar' component = {CalendarWrapper} />
