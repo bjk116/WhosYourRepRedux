@@ -15,11 +15,16 @@ module.exports = function(app) {
 	app.get('/getAllNames', function(req, res) {
 		Politician.find({})
 		.exec(function(err, response) {
-			var names = '';
-			response.forEach(function(item) {
-				names+="\"" + item.name+"\""+',';
+			var fromPoliToCid = [];
+
+			response.forEach(function(rep) {
+			var tpolitician = {};
+				tpolitician.name = rep.name;
+				tpolitician.cid = rep.cid
+				fromPoliToCid.push(tpolitician);
 			});
-			res.json({names:names});
+			
+			res.json(fromPoliToCid);
 		});
 	});
 
@@ -125,5 +130,9 @@ module.exports = function(app) {
 				authenticated: false
 			});
 		}
+	});
+
+	app.get('/poltiician/:name', function(req, res) {
+
 	});
 };

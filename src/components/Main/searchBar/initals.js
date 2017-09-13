@@ -53,3 +53,5 @@ var initials = [
 				"WI",
 				"WV",
 				"WY"];
+
+export default initials;

@@ -31,6 +31,7 @@ class Calendar extends Component {
 	}
 
 	constructor(props) {
+		console.log('constructing calendar');
 		super(props);
 		this.state = {
 			returnedEvents: [],
@@ -57,7 +58,7 @@ class Calendar extends Component {
 	componentDidMount() {
 		console.log('running mount with props', this.props);
 		var searchBy = this.props.searchBy;
-		this.getEventsByCriteria('NJ');
+		this.getEventsByCriteria(this.props.searchCriteria);
 	}
 
 	popUp(event) {

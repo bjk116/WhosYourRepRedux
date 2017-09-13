@@ -12,12 +12,17 @@ import UpdatedNavBar from './components/Navbar/UpdatedNavBar';
 import LoginError from './components/testComponents/LoginError';
 import axios from 'axios';
 import themeable from 'react-themeable';
+import politicianToCid from './helper/politicianToCID';
+
+//initials converter
+import stateHelper from './components/Main/searchBar/helper';
 
 //React Router
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Route, Redirect, Switch } from "react-router-dom";
 
 //Searchbar stuff
 import Source from "./components/Main/searchBar/dataSource";
+import stateInitials from "./components/Main/searchBar/initals";
 import Autosuggest from "react-autosuggest";
 import SearchStyle from "./styles/searchStyle.css";
 
@@ -70,84 +75,66 @@ function renderSuggestion(suggestion, { query }) {
   );
 }
 
-// <Calendar searchBy={"state"} searchCriteria={"NJ"}/>
-class CalendarWrapper extends Component{
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchCriteria: 'NJ'
-    };
-  }
-
-
-  //we keep searchCriteria in state
-  render() {
-    return(
-        <Calendar searchCriteria={this.state.searchCriteria}/>
-    );
-  }
-}
-
-class StatePageWrapper extends Component {
-  render() {
-    return(
-      <StatePage stateID={'NJ'} />
-    );
-  }
-}
-
 class App extends Component {
   constructor(){
     super();
 
     //change componentParameter to currentState
     this.state = {
-      currentComponent: "/main",
-      componentParameters: 'NJ',
-      currentState: 'NJ',
+      currentComponent: '',
+      currentProp: '',
       loggedInStatus : false,
       validSearch: false,
       value: "",
-      suggestions: []
+      suggestions: [],
+      redirect: false
+
     };
 
-    this.searchValue = this.searchParser.bind(this);
-
+    this.searchParser = this.searchParser.bind(this); 
   }
 
   //this function determines whether the search is a state or person, and then routes appropriately
   searchParser(input){  
     console.log('running search parser');
     for(var i = 0; i < data.length; i++) {
-      //if the search parameter is in our data source
-      if(input.toLowerCase() === data[i].toLowerCase()) {
-        console.log('found input');
-        if (i<55) {
-          console.log('its a state');
-          //find what initials it is
-          //set the currentState
-
-          return '/state';
-        } else {
-          console.log('its a person');
-          return '/politician';
-        }
+     //if the search parameter is in our data source
+     if(input.toLowerCase() === data[i].toLowerCase()) {
+       if (i<55) {
+        console.log('its a state');
+        var initials = stateInitials[i];
+          
+        console.log('initialsAPP', initials);
+          
+        this.setState({
+          currentComponent: '/state',
+          currentProp: '/'+initials,
+          redirect: true
+        });
+        } else if(i>55) {
+          //get senator id, and set state to currentComponent politician, currentProp cid
+          console.log(politicianToCid);
+          /*.forEach(function(rep) {
+            if(rep.name.toLowerCase() == input.toLowerCase()) {
+              this.setState({
+                currentComponent: '/politician',
+                currentProp: '/'+rep.cid,
+                redirect: true
+              });
+            }
+          });*/
+        } 
       }
-    };
-   return '/trending';
-  }
+    }
+  };
 
   onChange = (event, { newValue, method }) => {
-    var newCurrentComponent = this.searchParser(newValue);
-    console.log('newCurrentComponent', newCurrentComponent);
+    this.searchParser(newValue);
 
     //Last line - if our new currentComponent based on the search is a state or politician
     //it is a valid search, and so then we should render, otherwise, we should now
     this.setState({
       value: newValue,
-      currentComponent: newCurrentComponent,
-      componentParameters: newValue,
-      validSearch: (newCurrentComponent === '/state' || newCurrentComponent === '/politician') ? true : false
     });
 
   };
@@ -182,6 +169,13 @@ class App extends Component {
       value,
       onChange: this.onChange
     };
+
+    const redirect = this.state.redirect;
+    
+    if(redirect) {
+      return <Redirect to={this.state.currentComponent+this.state.currentProp} />
+    };
+
     return (
       <div id="App">
         <UpdatedNavBar currentState={this.state.currentState}/>
@@ -196,12 +190,32 @@ class App extends Component {
           inputProps={inputProps}
         />
 
-        <Router>
+
           <div>
-            <Route path="/state/:stateParam?" component={StatePage}/>
-            <Route path="/calendar/:stateParam?" component={CalendarWrapper}/>
+            <Switch>
+              <Route path="/state/:stateParam?" 
+                render={({match})=>(
+                  <StatePage 
+                    stateID={match.params.stateParam}
+                  />
+                  )}
+              />
+              <Route exact path='/calendar/:stateParam?' 
+                render={({match}) => (
+                  <Calendar 
+                    searchCriteria={match.params.stateParam}
+                  />
+                )}
+              />
+              <Route exact path='/politician/:cid?' 
+                render={({match}) => (
+                  <Politician 
+                    politicianCid={match.params.cid}
+                  />
+                )}
+              />
+            </Switch>
           </div>
-        </Router>
 
         <Footer />
         

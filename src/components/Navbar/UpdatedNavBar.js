@@ -8,7 +8,7 @@ class UpdatedNavBar extends React.Component {
 		//going to use props as the second part of the ahref link, ie 
 		//<a href={"/state/" + this.prop.stateParam}>State</a>
 	}
-	
+
 	render() {
 		return(
 			<nav>
@@ -21,7 +21,7 @@ class UpdatedNavBar extends React.Component {
 					</ul>
 
 					<ul id="nav-mobile" className="hide-on-small-only" className="right">
-						<li className ="active" className ="hide-on-small-only">Calendar</li>
+						<li className ="active" className ="hide-on-small-only"><a href="/calendar">Calendar</a></li>
 						<li className ="active" className ="hide-on-small-only">State</li>
 						<li className="active" className ="hide-on-small-only"><a href="/auth/facebook">Login with Facebook</a></li>
 					{/*<li className="active"><a href="http://localhost:3000/logout">Logout</a></li>*/}

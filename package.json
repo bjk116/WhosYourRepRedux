@@ -34,7 +34,7 @@
     "react-themeable": "^1.1.0"
   },
   "scripts": {
-    "start-dev": "react-scripts start",
+    "start-dev": "SET PORT=3001 && react-scripts start",
     "start": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
