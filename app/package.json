@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:3000/",
+  "engines": {
+    "node": "6.10.0"
+  },
   "dependencies": {
     "autosuggest-highlight": "^3.1.0",
     "axios": "^0.16.2",
@@ -29,7 +32,7 @@
     "react-scripts": "1.0.12"
   },
   "scripts": {
-    "start": "set PORT=3001 && react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

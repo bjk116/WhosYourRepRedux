@@ -182,7 +182,7 @@ class App extends Component {
         />
 
         <Calendar searchFor={"NJ"}/>
-  
+        <StatePageWrapper />
         <Footer />
         
       </div>
