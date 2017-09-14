@@ -184,7 +184,7 @@ class App extends Component {
         <UpdatedNavBar currentState={this.state.currentState}/>
 
         <Autosuggest 
-          theme={SearchStyle}
+          // theme={SearchStyle}
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
@@ -218,11 +218,12 @@ class App extends Component {
                 )}
               />
               <Route exact path = "/" component={Hero} />
+              <Route exact path = "/politican" component={Politician} />
             </Switch>
           </div>
 
 
-        <Footer />
+        {/*<Footer />*/}
         
       </div>
     );
