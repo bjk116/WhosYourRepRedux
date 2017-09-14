@@ -23,15 +23,22 @@ class Politician extends React.Component {
         var fullName = resp.data[0].name;
         var firstName = fullName.split(' ').slice(0, -1).join(' ');
         var twitPicURL = "https://twitter.com/" + resp.data[0].twitterHandle +"/profile_image?size=original";
+        var twitURL = "https://twitter.com/" + resp.data[0].twitterHandle;
         var party;
+        var partyPicture;
 
         if (resp.data[0].party === "R") {
           party = "Republican";
+          partyPicture = "http://diysolarpanelsv.com/images/clipart-of-the-republican-elephant-3.png";
         }else if (resp.data[0].party === "D") {
           party = "Democrat";
+          partyPicture = "http://eastoncourier.hanewsmedia.com/wp-content/uploads/sites/41/2013/07/Democratic-donkey.jpg";
         }else {
           party = resp.data[0].party;
+          partyPicture = "https://apushcanvas.pbworks.com/f/1350159361/American-Political-Parties.jpg";
         }
+
+
 
         this.setState({
           politicianName: resp.data[0].name,
@@ -45,7 +52,9 @@ class Politician extends React.Component {
           politicianProPublicaID: resp.data[0].proPublicaId,
           polCID: resp.data[0].cid,
           politicianFirstName: firstName,
-          twitterPicURL: twitPicURL
+          twitterPicURL: twitPicURL,
+          twitterURL: twitURL,
+          partyPic: partyPicture
         });
 
       });
@@ -96,7 +105,9 @@ class Politician extends React.Component {
         politicianProPublicaID: undefined,
         polCID: undefined,
         politicianFirstName: undefined,
-        twitterPicURL: undefined
+        twitterPicURL: undefined,
+        twitterURL: undefined,
+        partyPic: undefined
 
       }
       this.getPoliticianData = this.getPoliticianData.bind(this);
@@ -128,23 +139,30 @@ class Politician extends React.Component {
               <br></br>
               <div className="col s12 m8 l4">
                 <h5>Take a good look at {this.state.politicianFirstName}</h5>
-                <img src={this.state.twitterPicURL} alt={this.state.politicianName} className="circle"></img>
+                <img src={this.state.twitterPicURL} alt={this.state.politicianName} className="circle responsive-img"></img>
               </div>
               <div className="col s12 m8 l4">
-                <h5>{this.state.politicianFirstName} is a {this.state.politicianParty} and a {this.state.politicianPosition} for the state of {this.state.politicianState} with an end to their current term on {this.state.politicianEndOfTerm}.</h5>
-              </div>
-              <div className="col s12 m8 l4">
+                <h4>Details on {this.state.politicianFirstName}</h4>
+                <ol>
+                  <li>{this.state.politicianParty}</li>
+                  <li>{this.state.politicianPosition} for the state of {this.state.politicianState}</li>
+                  <li>Current term ends on {this.state.politicianEndOfTerm}</li>
+                  <li>Twitter handle: <a href={this.state.twitterURL} target="_blank">{this.state.politicianTwitterHandle}</a></li>
+                </ol>
                 <h5>Member of the following committees:</h5>
                 <ul>
                   <li>{this.state.politicianRoles}</li>
                 </ul>
+              </div>
+              <div className="col s12 m8 l4">
+                <img src={this.state.partyPic} alt={this.state.politicianName} className="circle responsive-img"></img>
               </div>
           </div>
         </div>
         <div className="divider"></div>
         <div className="section">
         <h5>Contributions for most recent election cycle by industry</h5>
-        <Chart
+        {/*<Chart
           chartType="ColumnChart"
           data={this.state.politicianDonors}
           options={{
@@ -152,7 +170,7 @@ class Politician extends React.Component {
             // legend: { position: 'top' },
           }}
           width="100%"
-        />
+        />*/}
         </div>
         <div className="divider"></div>
         <div className="section">
