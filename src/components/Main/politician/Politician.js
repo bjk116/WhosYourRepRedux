@@ -175,7 +175,7 @@ class Politician extends React.Component {
         <div className="divider"></div>
         <div className="section">
         <h5>Contributions for most recent election cycle by industry</h5>
-        {/*<Chart
+        <Chart
           chartType="ColumnChart"
           data={this.state.politicianDonors}
           options={{
@@ -183,7 +183,7 @@ class Politician extends React.Component {
             // legend: { position: 'top' },
           }}
           width="100%"
-        />*/}
+        />
         </div>
         <div className="divider"></div>
         <div className="section">
