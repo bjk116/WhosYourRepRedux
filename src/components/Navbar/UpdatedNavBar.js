@@ -42,9 +42,8 @@ class UpdatedNavBar extends React.Component {
 					</ul>
 
 					<ul id="nav-mobile" className="hide-on-small-only" className="right">
-						<li className ="active" className ="hide-on-small-only"><a href="/trending">Trending</a></li>
-						<li className ="active" className ="hide-on-small-only"><a href="/calendar">Calendar</a></li>
-						{/*<li className ="active" className ="hide-on-small-only">State</li>*/}
+						<li className ="active" className ="hide-on-small-only"><Link to="/trending">Trending</Link></li>
+						<li className ="active" className ="hide-on-small-only"><Link to="/state">State</Link></li>
 						{/*<li className="active" className ="hide-on-small-only"><a href="/auth/facebook">Login with Facebook</a></li>*/}
 					{/*<li className="active"><a href="http://localhost:3000/logout">Logout</a></li>*/}
 					</ul>
