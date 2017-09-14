@@ -102,7 +102,7 @@ class TopStateDonors extends React.Component {
 		console.log(this.state.politiciansDonors);
 		// console.log(this.props.stateID + " Democrats: " + this.state.stateHouseDems);
 		// console.log(this.props.stateID + " Republicans: " + this.state.stateHouseReps);
-
+		
 		return (
 			<div className = "row">
 				<h1>State Info for {this.props.stateID}</h1>

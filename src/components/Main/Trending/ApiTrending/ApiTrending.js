@@ -11,6 +11,7 @@ import MenuItem from 'material-ui/MenuItem';
 import axios from 'axios';
 import polToCID from '../../../utils/polToCID';
 import CIDtoTwitter from '../../../utils/CIDtoTwitter';
+import moment from 'moment';
 
 const iconButtonElement = (
   <IconButton
@@ -38,6 +39,7 @@ class ApiTrending extends Component {
 			resp.data.forEach(function(apiEvent) {
 
 				var event = {};
+				var time = moment(apiEvent.start).format('MM/DD/YYYY');
 				var name = apiEvent.beneficiaries[0];
 				var CID = polToCID[name];
 				var twitterHandle = CIDtoTwitter[CID];
@@ -46,7 +48,7 @@ class ApiTrending extends Component {
 				event.beneficiary = apiEvent.beneficiaries[0];
 				event.twitterPicture = "https://twitter.com/" + twitterHandle +"/profile_image?size=original";
 				event.description = apiEvent.desc;
-				event.start = apiEvent.start;
+				event.start = time;
 				event.link = '/politician/'+CID;
 				tempArr.push(event);
 			});
