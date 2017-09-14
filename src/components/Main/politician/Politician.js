@@ -55,8 +55,7 @@ class Politician extends React.Component {
     getDonorData(userInputForPolitician) {
       console.log('running donors data');
 
-
-      var industryDonors = [["Industry", "Total"]]; 
+      var industryDonors = [["Indusry", "Total"]]; 
         var secondQuery = '/donors/' + userInputForPolitician;
         axios({
           method: 'GET',
@@ -64,7 +63,20 @@ class Politician extends React.Component {
           responseType: 'json'
         }).then((resp)=>{
           console.log(resp);
+          
+          resp.data.forEach(function(item) {
+            var temp = [];
+            temp[0] = item.industry;
+            temp[1] = Number(item.total);
+            industryDonors.push(temp);
+          });
+
+          console.log('industrydonors', industryDonors);
+          this.setState({
+            politicianDonors: industryDonors
+          });
         });
+
     }
 
 
@@ -95,7 +107,7 @@ class Politician extends React.Component {
       // below line is for rendering dynamic data, for setup purposes I'm using one politician's CID for now
       // var politicianCID = this.props.politicianCid;
 
-      var politicianCID = "N00000575";
+      var politicianCID = this.props.poliCid;
       this.getPoliticianData(politicianCID);
       this.getDonorData(politicianCID);
 
