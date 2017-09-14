@@ -123,6 +123,18 @@ var stateHelper = {
 		});
 		
 		return '';
+	},
+	initialsToState: function(shortState) {
+		initials.forEach(function(initial, index) {
+
+			if(shortState.toLowerCase() === initial.toLowerCase()) {
+				console.log('found the match', index);
+				console.log('state', states[index]);
+				var ret = states[index];
+				return ret;
+			}
+		});
+		
 	}
 }
 

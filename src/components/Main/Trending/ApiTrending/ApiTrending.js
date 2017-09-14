@@ -70,7 +70,7 @@ class ApiTrending extends Component {
 			<div>
 		      <List>
 		        <Subheader>Upcoming Political Events!</Subheader>
-		        {this.state.listOfEvents.map(Events=>
+		        {this.state.listOfEvents.map(Events=>(
 		        	<div>
 			        	<ListItem
 			        	style={{marginBottom: 8}}
@@ -96,7 +96,7 @@ class ApiTrending extends Component {
 			        	/>
 			        	<Divider inset={true} />
 			        </div>
-              	)}
+              	))}
 		        
 		      </List>
   		    </div>

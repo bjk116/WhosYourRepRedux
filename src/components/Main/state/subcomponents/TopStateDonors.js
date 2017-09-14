@@ -2,6 +2,7 @@ import React from "react";
 import axios from 'axios';
 // import DonorChart from './DonorChart';
 import { Chart } from 'react-google-charts';
+import stateHelper from '../../searchBar/helper';
 
 class TopStateDonors extends React.Component {
 
@@ -79,11 +80,12 @@ class TopStateDonors extends React.Component {
 
 	constructor(props) {
 		super(props);
-
+		var stateName = stateHelper.initialsToState(this.props.stateID);
 		this.state = {
 			politiciansDonors: undefined,
 			stateHouseReps: undefined,
-			stateHouseDems: undefined
+			stateHouseDems: undefined,
+			longState: stateName
 		}
 
 		this.getNumofRepsAndDems = this.getNumofRepsAndDems.bind(this);
@@ -94,7 +96,6 @@ class TopStateDonors extends React.Component {
 		var stateID = this.props.stateID;
 		this.getPoliticianDonorTotals(stateID);
 		this.getNumofRepsAndDems(stateID);
-
 	}
 
 	render() {
