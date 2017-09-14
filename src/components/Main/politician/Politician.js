@@ -3,12 +3,14 @@
 import React from "react";
 import axios from 'axios';
 import { Chart } from 'react-google-charts';
+import moment from "moment";
 
-function renderListOfRoles(roles) {
-  for (var i = 0; i < roles.length; i++) {
-    <li>roles[i]</li>
-  }
-}
+// function renderListOfRoles(roles) {
+//   for (var i = 0; i < roles.length; i++) {
+//     <li>roles[i]</li>
+//   }
+// }
+
 
 // Creating the Results component
 class Politician extends React.Component {
@@ -19,13 +21,15 @@ class Politician extends React.Component {
         url: "/politician/" + userInputForPolitician,
         method: "GET",
       }).then((resp)=>{
-        //console.log(resp.data);
+        console.log(resp.data);
         var fullName = resp.data[0].name;
         var firstName = fullName.split(' ').slice(0, -1).join(' ');
         var twitPicURL = "https://twitter.com/" + resp.data[0].twitterHandle +"/profile_image?size=original";
         var twitURL = "https://twitter.com/" + resp.data[0].twitterHandle;
         var party;
         var partyPicture;
+
+        var formatEndTermDate = moment(resp.data[0].endOfTerm).format("MM-DD-YYYY");
 
         if (resp.data[0].party === "R") {
           party = "Republican";
@@ -46,7 +50,7 @@ class Politician extends React.Component {
           politicianPosition: resp.data[0].position,
           politicianParty: party,
           politicianTwitterHandle: resp.data[0].twitterHandle,
-          politicianEndOfTerm: resp.data[0].endOfTerm,
+          politicianEndOfTerm: formatEndTermDate,
           // politicianDonors: resp.data[0].donors,
           politicianRoles: resp.data[0].roles,
           politicianProPublicaID: resp.data[0].proPublicaId,
@@ -128,6 +132,11 @@ class Politician extends React.Component {
   // Here we render the function
   render() {
     console.log(this.state);
+    // var rolesArray = this.state.politicianRoles;
+
+    // const listRoles = rolesArray.map((role) =>
+    //   <li>{role}</li>
+    // );
     
     return (
       <div>
@@ -139,7 +148,7 @@ class Politician extends React.Component {
               <br></br>
               <div className="col s12 m8 l4">
                 <h5>Take a good look at {this.state.politicianFirstName}</h5>
-                <img src={this.state.twitterPicURL} alt={this.state.politicianName} className="circle responsive-img"></img>
+                <img src={this.state.twitterPicURL} alt={this.state.politicianName} className="circle responsive-img" width="300" height="300"></img>
               </div>
               <div className="col s12 m8 l4">
                 <h4>Details on {this.state.politicianFirstName}</h4>
@@ -149,13 +158,17 @@ class Politician extends React.Component {
                   <li>Current term ends on {this.state.politicianEndOfTerm}</li>
                   <li>Twitter handle: <a href={this.state.twitterURL} target="_blank">{this.state.politicianTwitterHandle}</a></li>
                 </ol>
+                <br></br>
                 <h5>Member of the following committees:</h5>
-                <ul>
-                  <li>{this.state.politicianRoles}</li>
-                </ul>
+                <p>{this.state.politicianRoles}</p>
+                {/*<ol>{this.state.politicianRoles.map((role) =>
+                      <li>{role}</li>
+                    )}
+                </ol>*/}
+                
               </div>
               <div className="col s12 m8 l4">
-                <img src={this.state.partyPic} alt={this.state.politicianName} className="circle responsive-img"></img>
+                <img src={this.state.partyPic} alt={this.state.politicianName} className="circle responsive-img" width="300" height="300"></img>
               </div>
           </div>
         </div>
