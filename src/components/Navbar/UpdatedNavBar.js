@@ -2,8 +2,13 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import "./style.css";
 import axios from 'axios';
+import $ from 'jquery';
 
 class UpdatedNavBar extends React.Component {
+
+	componentDidMount() {
+	    //$(this.refs.menu).sideNav();
+	}
 
 	handleFacebookClick(e) {
 		e.preventDefault();
@@ -27,7 +32,7 @@ class UpdatedNavBar extends React.Component {
 		return(
 			<nav>
 				<div className="nav-wrapper">
-					<a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
+					<a href="#" ref="menu" data-activates="nav-mobile" className="button-collapse"><i className="material-icons">menu</i></a>
 					<ul id="nav-mobile" className="hide-on-small-only" className="left" >
 						<li><img src="logo2.png" id="logo-img" className="hide-on-small-only"/></li>
 						<li className="active" className ="hide-on-small-only">RepGenius</li>

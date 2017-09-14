@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+cimport React, { Component } from "react";
 import "./App.css";
 import Footer from "./components/Footer/Footer";
 import Main from "./components/Main/Main";
@@ -167,6 +167,7 @@ class App extends Component {
     {
       const { value, suggestions } = this.state;
       const inputProps = {
+      //className: "browser-default",
       placeholder: "Search",
       value,
       onChange: this.onChange
