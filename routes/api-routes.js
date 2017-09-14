@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 var axios = require('axios');
 mongoose.Promise = Promise;
 
-var opensecretsAPIKey = 'ae20f4a9d0bfa0a12552aa9c592440cb';
+var opensecretsAPIKey = 'cc60c28935dab4f8e2714aadb14a3816';
 
 module.exports = function(app) {
 	app.post('/event/create', function(req, res) {
