@@ -38,6 +38,7 @@ class UpdatedNavBar extends React.Component {
 						{/*<li className="active" className ="hide-on-small-only">RepGenius</li>*/}
 						{/*<li id="nav-title" className="hide-on-small-only">RepGenius</li>*/}
 						<li className="hide-on-small-only">RepGenius</li>
+						<li id="nav-title">Who's Your Rep?</li>
 					</ul>
 
 					<ul id="nav-mobile" className="hide-on-small-only" className="right">

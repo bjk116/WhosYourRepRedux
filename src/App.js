@@ -190,7 +190,7 @@ class App extends Component {
     return (
       <div id="App">
         <UpdatedNavBar currentState={this.state.currentProp}/>
-
+      
         <Autosuggest 
           // theme={SearchStyle}
           suggestions={suggestions}
@@ -200,7 +200,7 @@ class App extends Component {
           renderSuggestion={renderSuggestion}
           inputProps={inputProps}
         />
-
+        
 
           <div>
             <Switch>
