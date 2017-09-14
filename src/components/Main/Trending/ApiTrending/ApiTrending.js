@@ -12,7 +12,6 @@ import axios from 'axios';
 import polToCID from '../../../utils/polToCID';
 import CIDtoTwitter from '../../../utils/CIDtoTwitter';
 
-
 const iconButtonElement = (
   <IconButton
     touch={true}
