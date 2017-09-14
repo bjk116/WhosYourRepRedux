@@ -89,8 +89,8 @@ class TopStateDonors extends React.Component {
 		this.getNumofRepsAndDems = this.getNumofRepsAndDems.bind(this);
 	}
 
-	componentWillMount() {
-		console.log("component mounted with manually entered props of: " + this.props.stateID);
+	componentDidMount() {
+		console.log("component mounted with props of: " + this.props.stateID);
 		var stateID = this.props.stateID;
 		this.getPoliticianDonorTotals(stateID);
 		this.getNumofRepsAndDems(stateID);

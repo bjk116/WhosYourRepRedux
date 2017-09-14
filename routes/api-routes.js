@@ -132,7 +132,69 @@ module.exports = function(app) {
 		}
 	});
 
-	app.get('/poltiician/:name', function(req, res) {
+	app.get('/poltician/:name', function(req, res) {
 
+	});
+
+	app.get('/politician/:cid', function(req, res) {
+		console.log("database request for politician by CID received");
+		Politician.find({
+			cid: req.params.cid
+		}).exec(function(err, response) {
+			if (err) {
+				console.log("Error for searching for politician in db: " + err);
+			}else {
+				console.log("politician by CID found in db: " + response);
+				res.json(response);
+			}
+		});
+	});
+
+	app.get('/donors/:cid', function(req, res) {
+		Politician.find({
+			cid: req.params.cid
+		}).exec(function(err, response) {
+			if(err) {
+				console.log("Error finding politician in db", err);
+			} else {
+				if(response[0].donors.length === 0) {
+					//we never had this persons donors before, time to find them and store in db
+					var opensecetsAPIKey = '2c976051a159c1c4c3961d853d3b4fb4';
+      				var queryURL = 'http://www.opensecrets.org/api/?method=candIndustry&cid='+ req.params.cid + '&apikey=' + opensecetsAPIKey + '&output=json';
+					axios({
+			          method: 'GET',
+			          url: queryURL,
+			          responseType: 'json'
+			        }).then((resp)=> {
+			          	var donors = [];
+						resp.data.response.industries.industry.forEach(function(item, index2) {
+							var donor = {};
+							donor.industry = item['@attributes'].industry_name;
+							donor.total = item['@attributes'].total;
+							donors.push(donor);
+						});
+
+						//save into db of correct politician
+						Politician.findOneAndUpdate({
+							cid: req.params.cid
+						},{
+							donors: donors
+						}).exec(function(err, doc) {
+							if(err) {
+								console.log(err);
+							} else {
+								console.log('updated donors, ', doc);
+							}
+						});						
+
+			        });
+
+
+
+				} else {
+					res.json(response[0].donors);
+				}
+			}
+		});
 	});
 };

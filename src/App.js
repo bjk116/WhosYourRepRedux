@@ -174,6 +174,7 @@ class App extends Component {
     {
       const { value, suggestions } = this.state;
       const inputProps = {
+      //className: "browser-default",
       placeholder: "Search",
       value,
       onChange: this.onChange
@@ -191,7 +192,7 @@ class App extends Component {
         <UpdatedNavBar currentState={this.state.currentProp}/>
 
         <Autosuggest 
-          theme={SearchStyle}
+          // theme={SearchStyle}
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
@@ -221,16 +222,17 @@ class App extends Component {
               <Route exact path='/politician/:cid?' 
                 render={({match}) => (
                   <Politician 
-                    politicianCid={match.params.cid}
+                    poliCid={match.params.cid}
                   />
                 )}
               />
               <Route exact path = "/" component={Hero} />
+              <Route exact path = "/politican" component={Politician} />
             </Switch>
           </div>
 
 
-        <Footer />
+        {/*<Footer />*/}
         
       </div>
     );
