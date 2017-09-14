@@ -1,91 +1,162 @@
 //import './politicians.css';
-var React = require("react");
+import React from "react";
+import axios from 'axios';
+import { Chart } from 'react-google-charts';
 
+function renderListOfRoles(roles) {
+  for (var i = 0; i < roles.length; i++) {
+    <li>roles[i]</li>
+  }
+}
 
 // Creating the Results component
-var Politician = React.createClass({
+class Politician extends React.Component {
+
+    getPoliticianData(userInputForPolitician) {
+
+      axios({
+        url: "/politician/" + userInputForPolitician,
+        method: "GET",
+      }).then((resp)=>{
+        //console.log(resp.data);
+        var fullName = resp.data[0].name;
+        var firstName = fullName.split(' ').slice(0, -1).join(' ');
+        var twitPicURL = "https://twitter.com/" + resp.data[0].twitterHandle +"/profile_image?size=original";
+        var party;
+
+        if (resp.data[0].party === "R") {
+          party = "Republican";
+        }else if (resp.data[0].party === "D") {
+          party = "Democrat";
+        }else {
+          party = resp.data[0].party;
+        }
+
+        this.setState({
+          politicianName: resp.data[0].name,
+          politicianState: resp.data[0].state,
+          politicianPosition: resp.data[0].position,
+          politicianParty: party,
+          politicianTwitterHandle: resp.data[0].twitterHandle,
+          politicianEndOfTerm: resp.data[0].endOfTerm,
+          // politicianDonors: resp.data[0].donors,
+          politicianRoles: resp.data[0].roles,
+          politicianProPublicaID: resp.data[0].proPublicaId,
+          polCID: resp.data[0].cid,
+          politicianFirstName: firstName,
+          twitterPicURL: twitPicURL
+        });
+
+      });
+
+    }
+
+    getDonorData(userInputForPolitician) {
+      var opensecetsAPIKey = '2c976051a159c1c4c3961d853d3b4fb4';
+      var queryURL = 'http://www.opensecrets.org/api/?method=candIndustry&cid='+ userInputForPolitician + '&apikey=' + opensecetsAPIKey + '&output=json';
+
+      var industryDonors = [["Industry", "Total"]];
+
+      axios({
+          method: 'GET',
+          url: queryURL,
+          responseType: 'json'
+        }).then((resp)=> {
+          console.log(resp);
+          for (var i = 0; i < resp.data.response.industries.industry.length; i++) {
+            industryDonors.push([resp.data.response.industries.industry[i]['@attributes'].industry_name, parseInt(resp.data.response.industries.industry[i]['@attributes'].total)]);
+          }
+          console.log(industryDonors);
+          this.setState({
+            politicianDonors: industryDonors
+          });
+        });
+    }
+
+
+
+    constructor(props) {
+      super(props);
+
+      this.state = {
+        politicianName: undefined,
+        politicianState: undefined,
+        politicianPosition: undefined,
+        politicianParty: undefined,
+        politicianTwitterHandle: undefined,
+        politicianEndOfTerm: undefined,
+        politicianDonors: undefined,
+        politicianRoles: undefined,
+        politicianProPublicaID: undefined,
+        polCID: undefined,
+        politicianFirstName: undefined,
+        twitterPicURL: undefined
+
+      }
+
+    }
+
+    componentDidMount() {
+      // below line is for rendering dynamic data, for setup purposes I'm using one politician's CID for now
+      // var politicianCID = this.props.politicianCid;
+
+      var politicianCID = "N00000575";
+      this.getPoliticianData(politicianCID);
+      this.getDonorData(politicianCID);
+
+    }
+
+
   // Here we render the function
-  render: function() {
+  render() {
+    console.log(this.state);
+    
     return (
       <div>
-
-        <div class="col-lg-12">
-          <div className="panel panel-primary">
-            <div className="panel-heading text-center">
-              <h3 className="panel-title">Politician</h3>
-            </div>
-            <div className="panel-body text-center">
-               <h1>Data</h1>
-                  <p>{this.props.name}</p>
-            </div>
+        <h4>{this.state.politicianName}</h4>
+        <div className="divider"></div>
+        <div className="section">
+          <div className="row">
+              <h5>Information on this fine statesman</h5>
+              <br></br>
+              <div className="col s12 m8 l4">
+                <h5>Take a good look at {this.state.politicianFirstName}</h5>
+                <img src={this.state.twitterPicURL} alt={this.state.politicianName} className="circle"></img>
+              </div>
+              <div className="col s12 m8 l4">
+                <h5>{this.state.politicianFirstName} is a {this.state.politicianParty} and a {this.state.politicianPosition} for the state of {this.state.politicianState} with an end to their current term on {this.state.politicianEndOfTerm}.</h5>
+              </div>
+              <div className="col s12 m8 l4">
+                <h5>Member of the following committees:</h5>
+                <ul>
+                <li>{this.state.politicianRoles}</li>
+                </ul>
+              </div>
           </div>
         </div>
-          
-              
-        <div class="col-lg-12">
-          <div className="panel panel-primary">
-            <div className="panel-heading text-center">
-              <h3 className="panel-title">Basic Information</h3>
-            </div>
-            <div className="panel-body text-center">
-               <h1>Data</h1>
-                  <p>{this.props.information}</p>
-            </div>
-          </div>
+        <div className="divider"></div>
+        <div className="section">
+        <h5>Contributions for most recent election cycle by industry</h5>
+        <Chart
+          chartType="ColumnChart"
+          data={this.state.politicianDonors}
+          options={{
+            // title: "Contributions for most recent election cycle by industry",
+            // legend: { position: 'top' },
+          }}
+          width="100%"
+        />
         </div>
-              
-        <div class="col-lg-12">
-          <div className="panel panel-primary">
-            <div className="panel-heading text-center">
-              <h3 className="panel-title">Tweets</h3>
-            </div>
-            <div className="panel-body text-center">
-               <h1>Data</h1>
-                  <p>{this.props.tweets}</p>
-            </div>
-          </div>
-        </div>
-               
-        <div class="col-lg-12">
-          <div className="panel panel-primary">
-            <div className="panel-heading text-center">
-              <h3 className="panel-title">Industry Donors</h3>
-            </div>
-            <div className="panel-body text-center">
-               <h1>Data</h1>
-                  <p>{this.props.donors}</p>
-            </div>
-          </div>
-        </div>      
-              
-        <div class="col-lg-12">
-          <div className="panel panel-primary">
-            <div className="panel-heading text-center">
-              <h3 className="panel-title">Next Re-Election Date</h3>
-            </div>
-            <div className="panel-body text-center">
-               <h1>Data</h1>
-                  <p>{this.props.election}</p>
-            </div>
-          </div>
-        </div>
-               
-        <div class="col-lg-12">
-          <div className="panel panel-primary">
-            <div className="panel-heading text-center">
-              <h3 className="panel-title">Proposed Bills</h3>
-            </div>
-            <div className="panel-body text-center">
-               <h1>Data</h1>
-                  <p>{this.props.bills}</p>
-            </div>
-          </div>
+        <div className="divider"></div>
+        <div className="section">
+        <h5>Section 3</h5>
+        <p>Stuff</p>
         </div>
       
       </div>
     
     );
   }
-});
+}
 
-module.exports = Politician;
+export default Politician;

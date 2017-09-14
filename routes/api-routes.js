@@ -132,7 +132,21 @@ module.exports = function(app) {
 		}
 	});
 
-	app.get('/poltiician/:name', function(req, res) {
+	app.get('/poltician/:name', function(req, res) {
 
+	});
+
+	app.get('/politician/:cid', function(req, res) {
+		console.log("database request for politician by CID received");
+		Politician.find({
+			cid: req.params.cid
+		}).exec(function(err, response) {
+			if (err) {
+				console.log("Error for searching for politician in db: " + err);
+			}else {
+				console.log("politician by CID found in db: " + response);
+				res.json(response);
+			}
+		});
 	});
 };

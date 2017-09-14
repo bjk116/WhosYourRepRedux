@@ -217,11 +217,12 @@ class App extends Component {
                 )}
               />
               <Route exact path = "/" component={Hero} />
+              <Route exact path = "/politican" component={Politician} />
             </Switch>
           </div>
 
 
-        <Footer />
+        {/*<Footer />*/}
         
       </div>
     );
