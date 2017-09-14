@@ -1,12 +1,9 @@
 .react-autosuggest__container {
   position: relative;
 }
-input[type="text"]{
-  width:250px;
-  border:5px solid green;
-}
+
 .react-autosuggest__input {
-  width: 50% !important;
+  width: 50%;
   height: 50px;
   padding: 10px 20px;
   font-family: Helvetica, sans-serif;
