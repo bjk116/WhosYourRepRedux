@@ -1,4 +1,4 @@
-cimport React, { Component } from "react";
+import React, { Component } from "react";
 import "./App.css";
 import Footer from "./components/Footer/Footer";
 import Main from "./components/Main/Main";
