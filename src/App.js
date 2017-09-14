@@ -212,22 +212,22 @@ class App extends Component {
                   )}
               />
               {console.log(this.props)}
-              <Route exact path='/calendar/:stateParam?' 
+              <Route path='/calendar/:stateParam?' 
                 render={({match}) => (
                   <Calendar 
                     searchCriteria={match.params.stateParam}
                   />
                 )}
               />
-              <Route exact path='/politician/:cid?' 
+              <Route path='/politician/:cid?' 
                 render={({match}) => (
                   <Politician 
                     poliCid={match.params.cid}
                   />
                 )}
               />
+              <Route path='/trending' component={Trending}/>
               <Route exact path = "/" component={Hero} />
-              <Route exact path = "/politican" component={Politician} />
             </Switch>
           </div>
 
