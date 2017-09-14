@@ -15,16 +15,15 @@ module.exports = function(app) {
 	app.get('/getAllNames', function(req, res) {
 		Politician.find({})
 		.exec(function(err, response) {
-			var fromPoliToCid = [];
+			var fromCIDtoTwitter = [];
 
 			response.forEach(function(rep) {
-			var tpolitician = {};
-				tpolitician.name = rep.name;
-				tpolitician.cid = rep.cid
-				fromPoliToCid.push(tpolitician);
+				var tpolitician = {};
+				tpolitician.temp = rep.cid + ':' + rep.twitterHandle + ',';
+				fromCIDtoTwitter.push(tpolitician);
 			});
 
-			res.json(fromPoliToCid);
+			res.json(fromCIDtoTwitter);
 		});
 	});
 
@@ -110,11 +109,20 @@ module.exports = function(app) {
 	});
 
 	app.get('/trending', function(req, res) {
+		var trendingDate = new Date();
+		trendingDate.setMonth(trendingDate.getMonth() + 1);
 		ApiEvents.find({
-
+			start: {
+				$lte: trendingDate
+			}
 		})
+		.limit(30)
 		.exec(function(err, response) {
-			console.log(response);
+			if(err) {
+				console.log('err', err);
+			} else {
+				res.json(response);
+			}
 		});
 	});
 
