@@ -167,7 +167,7 @@ module.exports = function(app) {
 			} else {
 				if(response[0].donors.length === 0) {
 					//we never had this persons donors before, time to find them and store in db
-					var opensecetsAPIKey = '2c976051a159c1c4c3961d853d3b4fb4';
+					var opensecetsAPIKey = 'f6c7bd41f17ff86b93da41debbc29a2b';
       				var queryURL = 'http://www.opensecrets.org/api/?method=candIndustry&cid='+ req.params.cid + '&apikey=' + opensecetsAPIKey + '&output=json';
 					axios({
 			          method: 'GET',
