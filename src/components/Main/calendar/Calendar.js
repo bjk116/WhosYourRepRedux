@@ -8,7 +8,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
+import PleaseSearchState from "../pleaseSearch/PleaseSearch";
 
 // Setup the localizer by providing the moment (or globalize) Object
 // to the correct localizer.
@@ -84,34 +84,40 @@ class Calendar extends Component {
         		onClick={this.handleClose}
       			/>
       	];
-		return(
-			<div className="container-fluid">
-    			<BigCalendar
-		            events={this.state.returnedEvents}
-		            eventPropGetter={this.eventColor}
-		            /*
-						Try to get this onSelectEvent to create a modal of event details!
-		            */
-		            selectable
-		            onSelectEvent={event => this.popUp(event)}
-		            views={['month', 'week', 'day']}
-    			/>
-    			<MuiThemeProvider>
-	                <Dialog
-	                    title={this.state.title}
-	                    actions={actions}
-	                    modal={false}
-	                    open={this.state.open}
-	                    onRequestClose={this.handleClose}
-	                    >
-	                    <h5>At: {this.state.startTime}</h5>
-	                    <h5>For: {this.state.beneficiaries[0]}</h5>
-	                    {this.state.description &&
-	                    	<h5>Description: {this.state.description}</h5>}
-	                </Dialog>
-                </MuiThemeProvider>
-  			</div>
-		);
+
+      	if(!this.props.searchCriteria) {
+      		return <PleaseSearchState />
+      	} else {
+
+			return(
+				<div className="container-fluid">
+	    			<BigCalendar
+			            events={this.state.returnedEvents}
+			            eventPropGetter={this.eventColor}
+			            /*
+							Try to get this onSelectEvent to create a modal of event details!
+			            */
+			            selectable
+			            onSelectEvent={event => this.popUp(event)}
+			            views={['month', 'week', 'day']}
+	    			/>
+	    			<MuiThemeProvider>
+		                <Dialog
+		                    title={this.state.title}
+		                    actions={actions}
+		                    modal={false}
+		                    open={this.state.open}
+		                    onRequestClose={this.handleClose}
+		                    >
+		                    <h5>At: {this.state.startTime}</h5>
+		                    <h5>For: {this.state.beneficiaries[0]}</h5>
+		                    {this.state.description &&
+		                    	<h5>Description: {this.state.description}</h5>}
+		                </Dialog>
+	                </MuiThemeProvider>
+	  			</div>
+			);
+		}
 	}
 }
 

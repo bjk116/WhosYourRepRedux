@@ -1,11 +1,18 @@
 //import './politicians.css';
-var React = require("react");
-
+import React from 'react';
+import PleaseSearchPolitician from "../pleaseSearch/PleaseSearchPolitician";
 
 // Creating the Results component
-var Politician = React.createClass({
+class Politician extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log(this.props);
+  }
   // Here we render the function
-  render: function() {
+  render() {
+    if(!this.props.politicianCid) {
+      return <PleaseSearchPolitician />
+    } else {
     return (
       <div>
 
@@ -86,6 +93,7 @@ var Politician = React.createClass({
     
     );
   }
-});
+  }
+};
 
-module.exports = Politician;
+export default Politician;

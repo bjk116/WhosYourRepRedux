@@ -12,7 +12,7 @@ import UpdatedNavBar from './components/Navbar/UpdatedNavBar';
 import LoginError from './components/testComponents/LoginError';
 import axios from 'axios';
 import themeable from 'react-themeable';
-import politicianToCid from './helper/politicianToCID';
+import polToCid from './helper/politicianToCID';
 import Hero from "./components/hero/Hero";
 
 //initials converter
@@ -78,8 +78,8 @@ function renderSuggestion(suggestion, { query }) {
 }
 
 class App extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
 
     //change componentParameter to currentState
     this.state = {
@@ -113,18 +113,25 @@ class App extends Component {
           currentProp: '/'+initials,
           redirect: true
         });
+
         } else if(i>55) {
           //get senator id, and set state to currentComponent politician, currentProp cid
-          console.log(politicianToCid);
-          /*.forEach(function(rep) {
-            if(rep.name.toLowerCase() == input.toLowerCase()) {
-              this.setState({
-                currentComponent: '/politician',
-                currentProp: '/'+rep.cid,
-                redirect: true
-              });
-            }
-          });*/
+          console.log(polToCid);
+          // polToCid.forEach(function(rep) {
+          //   if(rep.name.toLowerCase() == input.toLowerCase()) {
+          //     this.setState({
+          //       currentComponent: '/politician',
+          //       currentProp: '/'+rep.cid,
+          //       redirect: true
+          //     });
+          //   }
+          // }).bind(this);
+          console.log(polToCid[input]);
+          this.setState({
+            currentComponent: '/politician',
+            currentProp: '/'+polToCid[input],
+            redirect: true
+          });
         } 
       }
     }
@@ -175,12 +182,13 @@ class App extends Component {
     const redirect = this.state.redirect;
     
     if(redirect) {
-      return <Redirect to={this.state.currentComponent+this.state.currentProp} />
+      console.log(this);
+      return <Redirect to={this.state.currentComponent+this.state.currentProp} />;
     };
 
     return (
       <div id="App">
-        <UpdatedNavBar currentState={this.state.currentState}/>
+        <UpdatedNavBar currentState={this.state.currentProp}/>
 
         <Autosuggest 
           theme={SearchStyle}
@@ -202,6 +210,7 @@ class App extends Component {
                   />
                   )}
               />
+              {console.log(this.props)}
               <Route exact path='/calendar/:stateParam?' 
                 render={({match}) => (
                   <Calendar 
