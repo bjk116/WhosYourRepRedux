@@ -183,7 +183,7 @@ class App extends Component {
         <UpdatedNavBar currentState={this.state.currentState}/>
 
         <Autosuggest 
-          theme={SearchStyle}
+          // theme={SearchStyle}
           suggestions={suggestions}
           onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
           onSuggestionsClearRequested={this.onSuggestionsClearRequested}
