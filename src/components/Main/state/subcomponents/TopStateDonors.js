@@ -106,6 +106,7 @@ class TopStateDonors extends React.Component {
 		return (
 			<div className = "row">
 				<h1>State Info for {this.props.stateID}</h1>
+				<h4>View <a href={'/calendar/'+this.props.stateID}>Calendar</a></h4>
 				<div className = "divider"></div>
 				<div className = "col s8 m8 lg8">
 				{/*<DonorChart donorsData={this.state.politiciansDonors} />*/}
